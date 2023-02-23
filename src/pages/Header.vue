@@ -2,7 +2,7 @@
   <div>
       
     <v-app-bar 
-    color="red darken-2"
+    color="#07451E"
     >
       <v-app-bar-nav-icon class="white--text" @click="drawer = true"></v-app-bar-nav-icon><br><br>
 

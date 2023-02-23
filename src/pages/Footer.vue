@@ -1,7 +1,8 @@
 <template>
-    <v-footer padless fixed>
+    <v-footer padless fixed color="#004C1C">
       <v-col
-        class="text-center green white--text "
+        class="text-center  white--text "
+        
         cols="12"
       >
         {{ new Date().getFullYear() }} — <strong class="white--text">Todos los derechos reservados

@@ -1,43 +1,40 @@
 <template>
-  <v-app>
+  <v-app id="inspire">
     <v-container fluid no-gutters>
-      <v-row>
-        <br /><br />
-        <br /><br />
-        <v-row>
-          <v-col></v-col>
-          <v-col class="9">
-            <v-card
-              class="mt-20 text-center red text-no-wrap"
-              max-width="300"
-              height="150"
-              id=""
-            >
-              <v-card height="250" id="tarjeta1">
-                <br />
-                <v-card-title class="white--text"
-                  ><h4>Trabajadores COOHILADOS</h4> </v-card-title
-                ><br />
-                <v-card-text
-                  ><v-icon color="yellow">mdi-folder-multiple-outline</v-icon>
-                </v-card-text>
-                <v-card-actions>
-                  <v-btn
-                    rounded
-                    class="text-center"
-                    outlined
-                    color="orange darken-1"
-                    to="/TiposTrabajadores"
-                  >
-                    Acceder
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
+      <v-row class="" align="center">
+        <v-col></v-col>
+        <v-col class="9">
+          <v-card
+            class="mt-20 text-center text-no-wrap"
+            color="#3FA343"
+            max-width="300"
+            height="150"
+            id=""
+          >
+            <v-card height="250" id="tarjeta1">
+              <br />
+              <v-card-title class="black--text"
+                ><h4>Trabajadores COOHILADOS</h4> </v-card-title
+              ><br />
+              <v-card-text
+                ><v-icon color="#3FA343">mdi-folder-multiple-outline</v-icon>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn
+                  class="mt-20 text-center text-no-wrap"
+                  color="#3FA343"
+                  rounded
+                  outlined
+                  to="/TiposTrabajadores"
+                >
+                  Acceder
+                </v-btn>
+              </v-card-actions>
             </v-card>
-          </v-col>
+          </v-card>
+        </v-col>
 
-          <v-col> </v-col>
-        </v-row>
+        <v-col> </v-col>
       </v-row>
     </v-container>
   </v-app>

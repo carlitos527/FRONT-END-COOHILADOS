@@ -32,15 +32,8 @@
                             >
                             <v-card-text>
                               <v-row>
-                                <v-col cols="12" sm="6" md="6">
-                                  <v-select
-                                    v-model="tipoPersona"
-                                    :items="tipoPersona"
-                                    label="Tipo Persona"
-                                    required
-                                  >
-                                  </v-select>
-
+                                <v-col >
+                                
                                   <v-select
                                     v-model="tipoDocumento"
                                     :items="tipoDocumento"
@@ -67,11 +60,29 @@
                                     required
                                   ></v-text-field>
 
-                                  <v-text-field
-                                    v-model="fechaNacimiento"
-                                    label="Fecha de Nacimineto"
-                                    required
-                                  ></v-text-field>
+                                  <v-menu
+                                    v-model="menu2"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
+                                    <template v-slot:activator="{ on, attrs }">
+                                      <v-text-field
+                                        v-model="fechaNacimiento"
+                                        label="Escoja la Fecha de Nacimiento"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                      v-model="fechaNacimiento"
+                                      @input="menu2 = false"
+                                    ></v-date-picker>
+                                  </v-menu>
 
                                   <v-text-field
                                     v-model="barrio"
@@ -88,7 +99,9 @@
                                     :items="town"
                                     v-model="city"
                                     item-text="Ciudad"
+                                    item-value="_id"
                                     label="Ciudad"
+                                    @change="prueba()"
                                   ></v-select>
 
                                   <v-text-field
@@ -109,18 +122,53 @@
                                     label="Tipo de contrato del trabajador"
                                     required
                                   ></v-text-field>
-                                  <v-text-field
-                                    v-model="fechaInicio"
-                                    label="Fecha de inicio del contrato"
-                                    required
-                                  ></v-text-field>
 
-                                  <v-text-field
-                                    v-model="fechaFin"
-                                    label="Fecha de finalización del contrato"
-                                    required
-                                  ></v-text-field>
-
+                                  <v-menu
+                                    v-model="menu3"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
+                                    <template v-slot:activator="{ on, attrs }">
+                                      <v-text-field
+                                        v-model="fechaInicio"
+                                        label="Escoja la Fecha de inicio de contrato"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                      v-model="fechaInicio"
+                                      @input="menu3 = false"
+                                    ></v-date-picker>
+                                  </v-menu>
+                                  <v-menu
+                                    v-model="menu4"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
+                                    <template v-slot:activator="{ on, attrs }">
+                                      <v-text-field
+                                        v-model="fechaFin"
+                                        label="Escoja la Fecha de finalización de contrato"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                      v-model="fechaFin"
+                                      @input="menu4 = false"
+                                    ></v-date-picker>
+                                  </v-menu>
 
                                   <v-text-field
                                     v-model="salario"
@@ -132,16 +180,15 @@
                                     :items="area"
                                     v-model="areaTrabajo"
                                     label="Área de trabajo"
-                                    @change="traerAreaTrabajo()"
+                                    item-text="nombre"
+                                    item-value="_id"
                                   ></v-select>
-
 
                                   <v-text-field
                                     v-model="cargo"
                                     label="Rol"
                                   ></v-text-field>
-
-                                </v-col>
+                                </v-col> 
                               </v-row>
                             </v-card-text>
 
@@ -225,10 +272,10 @@
                       </v-toolbar>
                     </template>
 
-                    <!-- estado -->
+                    <!-- estados -->
 
                     <template v-slot:[`item.actions`]="{ item }">
-                      <div v-show=" item.estado==3">
+                      <div v-show="item.estado == 3" class="boton">
                         <v-btn
                           color="green"
                           icon
@@ -237,9 +284,12 @@
                           @click="cambiarEstado(item)"
                         >
                           <font-awesome-icon icon="fa-solid fa-check" />
+                          <div class="texto">
+                            <h5>activar</h5>
+                          </div>
                         </v-btn>
                       </div>
-                      <div v-show="item.estado == 1">
+                      <div v-show="item.estado == 1" class="boton">
                         <v-btn
                           color="red"
                           icon
@@ -248,9 +298,12 @@
                           @click="cambiarEstado(item)"
                         >
                           <font-awesome-icon icon="fa-solid fa-ban" />
+                          <div class="texto">
+                            <h5>inhabilitar</h5>
+                          </div>
                         </v-btn>
                       </div>
-                      <div v-show="item.estado == 2">
+                      <div v-show="item.estado == 2" class="boton">
                         <v-btn
                           color="orange"
                           icon
@@ -259,27 +312,39 @@
                           @click="cambiarEstado(item)"
                         >
                           <font-awesome-icon icon="fa-solid fa-plane" />
+                          <div class="texto">
+                            <h5>vacaciones</h5>
+                          </div>
                         </v-btn>
                       </div>
-
-                      <v-btn
-                        color="green"
-                        icon
-                        dark
-                        class="mb-2"
-                        @click="detalleDirecto(item)"
-                      >
-                        <font-awesome-icon icon="fa-solid fa-eye" />
-                      </v-btn>
-                      <v-btn
-                        color="primary"
-                        icon
-                        dark
-                        class="mb-2"
-                        @click="detalleDirecto(item)"
-                      >
-                        <font-awesome-icon icon="fa-solid fa-pencil" />
-                      </v-btn>
+                      <div class="boton">
+                        <v-btn
+                          color="green"
+                          icon
+                          dark
+                          class="mb-2"
+                          @click="detalleTrabajador(item)"
+                        >
+                          <font-awesome-icon icon="fa-solid fa-eye" />
+                          <div class="texto">
+                            <h5>ver</h5>
+                          </div>
+                        </v-btn>
+                      </div>
+                      <article class="boton">
+                        <v-btn
+                          color="primary"
+                          icon
+                          dark
+                          class="mb-2"
+                          @click="detalleTrabajador(item)"
+                        >
+                          <font-awesome-icon icon="fa-solid fa-pencil" />
+                          <div class="texto">
+                            <h5>editar</h5>
+                          </div>
+                        </v-btn>
+                      </article>
                     </template>
 
                     <!-- cambiar estados -->
@@ -293,6 +358,21 @@
                       <div v-show="item.estado == 3">
                         <span class="blue--text"> Vacaciones </span>
                       </div>
+                    </template>
+                    <template v-slot:[`item.fechaNacimiento`]="{ item }">
+                      <span>
+                        {{ fecha(item.fechaNacimiento) }}
+                      </span>
+                    </template>
+                    <template v-slot:[`item.fechaInicio`]="{ item }">
+                      <span>
+                        {{ fecha(item.fechaInicio) }}
+                      </span>
+                    </template>
+                    <template v-slot:[`item.fechaFin`]="{ item }">
+                      <span>
+                        {{ fecha(item.fechaFin) }}
+                      </span>
                     </template>
                   </v-data-table>
                 </template>
@@ -309,6 +389,20 @@ import axios from "axios";
 export default {
   name: "PagesAgregarTemporales",
   data: () => ({
+    fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .substr(0, 10),
+    fechaFin: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .substr(0, 10),
+    fechaNacimiento: new Date(
+      Date.now() - new Date().getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .substr(0, 10),
+    menu3: false,
+    menu4: false,
+    menu2: false,
     dialog: false,
     dialogEdit: false,
     headers: [
@@ -320,10 +414,9 @@ export default {
       { text: "Inicio Cotrato", value: "fechaInicio" },
       { text: "Fin Cotrato", value: "fechaFin" },
       { text: "Tiempo", value: "tiempoLaborado" },
-      { text: "Cargo", value: "cargo" },
       { text: "Area de Trabajo", value: "areaTrabajo.nombre" },
       { text: "Salario", value: "salario" },
-      { text: "Rol", value: "rol" },
+      { text: "Cargo", value: "rol" },
       { text: "Estado", value: "estado" },
       { text: "Actions", value: "actions", sortable: false },
     ],
@@ -339,10 +432,7 @@ export default {
 
     documento: "",
     sexo: ["M", "F"],
-    fechaNacimiento: "",
     tipoContrato: "",
-    fechaInicio: "",
-    fechaFin: "",
     tiempoLaborado: "",
     cargo: "",
     areaTrabajo: "",
@@ -380,6 +470,9 @@ export default {
           console.log(err);
         });
     },
+    prueba(){
+      console.log("ciudad: "+this.city);
+    },
 
     traerDepartamentos() {
       axios
@@ -387,29 +480,26 @@ export default {
         .then((response) => {
           // response.data.ciudad.reduce((obj, item) => (obj[item.Departamento] = true, obj), {});
           this.cities = response.data.departamentos;
-          console.log(this.cities);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    traerCiudades(depart) {
-      depart = this.departamento;
-      console.log(depart);
+    traerCiudades() {
       axios
-        .get(`https://back-coohilados.vercel.app/api/ciudad/ciudad/get/${depart}`)
+        .get(
+          `https://back-coohilados.vercel.app/api/ciudad/ciudad/get/${this.departamento}`
+        )
         .then((response) => {
           //this.town = response.data.city.reduce((obj, item) => (obj[item.Ciudad] = true, obj), {});
           //this.ciudad = response.data.city.filter(c => { return c.Ciudad.length > 3})
           this.town = response.data.city;
-
           console.log(this.town);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-
     traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")
@@ -426,25 +516,33 @@ export default {
     cambiarEstado(item) {
       if (item.estado == 1) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/ayudaTemporal/desactivar/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/ayudaTemporal/desactivar/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
           .catch((err) => {
             console.log(err);
           });
-      }if (item.estado ==3) {
+      }
+      if (item.estado == 3) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/ayudaTemporal/activar/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/ayudaTemporal/activar/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
           .catch((err) => {
             console.log(err);
           });
-      } if(item.estado==2) {
+      }
+      if (item.estado == 2) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/ayudaTemporal/vacaciones/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/ayudaTemporal/vacaciones/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
@@ -473,7 +571,9 @@ export default {
       console.log(id);
       if (id) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/trabajadorDirecto/activar/${id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/trabajadorDirecto/activar/${id}`
+          )
           .then((response) => {
             console.log(response);
           })
@@ -484,21 +584,19 @@ export default {
     },
     agregar() {
       let header = { headers: { "x-token": this.$store.state.token } };
-      console.log(header);
+      console.log("id ciudad: "+this.city);
+      console.log("area de trabajo: "+this.areaTrabajo);
       axios
         .post(
           "https://back-coohilados.vercel.app/api/ayudaTemporal/agregar",
           {
-            tipoPersona: this.tipoPersona,
             tipoDocumento: this.tipoDocumento,
             documento: this.documento,
             sexo: this.sexo,
             nombre: this.nombre,
             fechaNacimiento: this.fechaNacimiento,
-            tipoContrato: this.tipoContrato,
-            fechaInicio: this.fechaInicio,
+            fechaInicio: this.fechaInicio, 
             fechaFin: this.fechaFin,
-            cargo: this.cargo,
             areaTrabajo: this.areaTrabajo,
             salario: this.salario,
             barrio: this.barrio,
@@ -506,7 +604,6 @@ export default {
             ciudad: this.city,
             telefono: this.telefono,
             email: this.email,
-            estado: this.estado,
             rol: this.rol,
           },
           header
@@ -518,6 +615,11 @@ export default {
           console.log(err);
         });
     },
+    fecha(r) {
+      let d = new Date(r);
+      let f = d.toISOString();
+      return f.split("T")[0].replace(/-/g, "/");
+    },
   },
 
   created() {
@@ -527,3 +629,25 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.boton {
+  position: relative;
+}
+
+.texto {
+  position: absolute;
+  top: -30px;
+  font-size: 12px;
+  background: rgb(220, 216, 216);
+  color: black;
+  padding: 8px;
+  visibility: hidden;
+  transition: hover 0.6s ease;
+  border-radius: 10px;
+}
+
+.boton:hover .texto {
+  visibility: visible;
+}
+</style>

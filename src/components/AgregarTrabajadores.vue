@@ -77,8 +77,8 @@
                                   >
                                     <template v-slot:activator="{ on, attrs }">
                                       <v-text-field
-                                        v-model="date"
-                                        label="Picker without buttons"
+                                        v-model="fechaNacimiento"
+                                        label="Escoja la Fecha de Nacimiento"
                                         prepend-icon="mdi-calendar"
                                         readonly
                                         v-bind="attrs"
@@ -127,17 +127,54 @@
                                     label="Tipo de contrato del trabajador"
                                     required
                                   ></v-text-field>
-                                  <v-text-field
-                                    v-model="fechaInicio"
-                                    label="Fecha de inicio del contrato"
-                                    required
-                                  ></v-text-field>
 
-                                  <v-text-field
-                                    v-model="fechaFin"
-                                    label="Fecha de finalización del contrato"
-                                    required
-                                  ></v-text-field>
+                                  <v-menu
+                                    v-model="menu3"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
+                                    <template v-slot:activator="{ on, attrs }">
+                                      <v-text-field
+                                        v-model="fechaInicio"
+                                        label="Escoja la Fecha de inicio de contrato"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                      v-model="fechaInicio"
+                                      @input="menu3 = false"
+                                    ></v-date-picker>
+                                  </v-menu>
+                                  <v-menu
+                                    v-model="menu4"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    transition="scale-transition"
+                                    offset-y
+                                    min-width="auto"
+                                  >
+                                    <template v-slot:activator="{ on, attrs }">
+                                      <v-text-field
+                                        v-model="fechaFin"
+                                        label="Escoja la Fecha de finalización de contrato"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                      v-model="fechaFin"
+                                      @input="menu4 = false"
+                                    ></v-date-picker>
+                                  </v-menu>
+
 
                                   <v-text-field
                                     v-model="salario"
@@ -159,6 +196,7 @@
                                 </v-col>
                               </v-row>
                             </v-card-text>
+
                             <v-card-actions>
                               <v-spacer></v-spacer>
                               <v-btn color="blue darken-1" text @click="close()"
@@ -178,6 +216,7 @@
                     </template>
                   </v-toolbar>
                 </v-template>
+
                 <template>
                   <v-data-table
                     :headers="headers"
@@ -252,6 +291,7 @@
                         </v-card>
                       </v-toolbar>
                     </template>
+
                     <!-- estados -->
 
                     <template v-slot:[`item.actions`]="{ item }">
@@ -339,6 +379,22 @@
                         <span class="blue--text"> Vacaciones </span>
                       </div>
                     </template>
+
+                    <template v-slot:[`item.fechaNacimiento`]="{ item }">
+                      <span>
+                        {{ fecha(item.fechaNacimiento) }}
+                      </span>
+                    </template>
+                    <template v-slot:[`item.fechaInicio`]="{ item }">
+                      <span>
+                        {{ fecha(item.fechaInicio) }}
+                      </span>
+                    </template>
+                    <template v-slot:[`item.fechaFin`]="{ item }">
+                      <span>
+                        {{ fecha(item.fechaFin) }}
+                      </span>
+                    </template>
                   </v-data-table>
                 </template>
               </v-col>
@@ -354,8 +410,20 @@ import axios from "axios";
 export default {
   name: "PagesAgregarTrabajadores",
   data: () => ({
-    date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
-    menu2:false,
+    fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .substr(0, 10),
+    fechaFin: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
+      .toISOString()
+      .substr(0, 10),
+    fechaNacimiento: new Date(
+      Date.now() - new Date().getTimezoneOffset() * 60000
+    )
+      .toISOString()
+      .substr(0, 10),
+    menu3: false,
+    menu4: false,
+    menu2: false,
     dialog: false,
     dialogEdit: false,
     headers: [
@@ -372,7 +440,6 @@ export default {
       { text: "Cargo", value: "cargo" },
       { text: "Procesos", value: "areaTrabajo.nombre" },
       { text: "Salario", value: "salario" },
-      { text: "Rol", value: "rol" },
       { text: "Estado Actual", value: "estado" },
       { text: "Acciones", value: "actions", sortable: false },
     ],
@@ -386,11 +453,8 @@ export default {
       "Numero de Identificacion tributaria",
     ],
     documento: "",
-    sexo: ["M", "F"],
-    fechaNacimiento: "",
+    sexo: ["M", "F"], 
     tipoContrato: "",
-    fechaInicio: "",
-    fechaFin: "",
     tiempoLaborado: "",
     cargo: "",
     areaTrabajo: "",
@@ -454,7 +518,9 @@ export default {
       depart = this.departamento;
       console.log(depart);
       axios
-        .get(`https://back-coohilados.vercel.app/api/ciudad/ciudad/get/${depart}`)
+        .get(
+          `https://back-coohilados.vercel.app/api/ciudad/ciudad/get/${depart}`
+        )
         .then((response) => {
           //this.town = response.data.city.reduce((obj, item) => (obj[item.Ciudad] = true, obj), {});
           //this.ciudad = response.data.city.filter(c => { return c.Ciudad.length > 3})
@@ -469,7 +535,9 @@ export default {
     cambiarEstado(item) {
       if (item.estado == 1) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/servicio/desactivar/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/servicio/desactivar/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
@@ -479,7 +547,9 @@ export default {
       }
       if (item.estado == 3) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/servicio/activar/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/servicio/activar/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
@@ -489,7 +559,9 @@ export default {
       }
       if (item.estado == 2) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/servicio/vacaciones/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/servicio/vacaciones/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
@@ -535,6 +607,11 @@ export default {
           console.log(err);
         });
     },
+    fecha(r) {
+      let d = new Date(r);
+      let f = d.toISOString();
+      return f.split("T")[0].replace(/-/g, "/");
+    },
   },
 
   created() {
@@ -561,6 +638,7 @@ export default {
   padding: 8px;
   visibility: hidden;
   transition: hover 0.6s ease;
+  border-radius: 10px;
 }
 
 .boton:hover .texto {

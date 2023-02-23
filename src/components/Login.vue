@@ -54,12 +54,13 @@
       <v-row class="align-center">
         <v-col>
           <v-overlay :value="loading">
-          <v-progress-circular v-show="loading==true"
-            :size="70"
-            :width="7"
-            color="black"
-            indeterminate
-          ></v-progress-circular>
+            <v-progress-circular
+              v-show="loading == true"
+              :size="70"
+              :width="7"
+              color="black"
+              indeterminate
+            ></v-progress-circular>
           </v-overlay>
         </v-col>
       </v-row>
@@ -75,7 +76,7 @@ export default {
   data: () => ({
     email: "",
     password: "",
-    loading:false,
+    loading: false,
   }),
   methods: {
     login() {
@@ -87,14 +88,22 @@ export default {
         })
         .then((response) => {
           console.log(response);
-
           this.$store.dispatch("setToken", response.data.token);
           this.$store.dispatch("setDatosUsuario", response.data.usuario);
           this.$router.push("/Home");
-          console.log(response.data.token);
+
+          this.$swal({
+            icon: "success",
+            title: "Inicio de sesión exitoso",
+          });
         })
         .catch((error) => {
           console.log(error);
+          this.loading=false;
+          this.$swal({
+            icon: "error",
+            title: "Error al iniciar sesión",
+          });
         });
     },
   },

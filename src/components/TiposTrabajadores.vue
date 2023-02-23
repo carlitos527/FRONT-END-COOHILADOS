@@ -3,7 +3,7 @@
     <v-container fluid no-gutters>
       <v-row class="" align="center">
         <v-col cols="4">
-          <v-card class="pt-0 lime lighten-3" max-width="340" outlined>
+          <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
             <div>
               <h1 class="text-left mb-10">
                 Asociados
@@ -15,7 +15,8 @@
               <v-row class="justify-end mt-1">
                 <v-col cols="3">
                   <v-btn
-                    color="#004822"
+                    color="#41B44C"
+                    class="black"
                     outlined
                     rounded
                     text
@@ -30,7 +31,7 @@
         </v-col>
 
         <v-col cols="4">
-          <v-card class="mx-auto lime lighten-3" max-width="344" outlined>
+          <v-card class="mx-auto" color="#41B44C" max-width="344" outlined>
             <div>
               <h1 class="text-left mb-10">
                 Directos
@@ -42,7 +43,8 @@
               <v-row class="justify-end mt-1">
                 <v-col cols="3">
                   <v-btn
-                    color="#004822"
+                    color="#41B44C"
+                    class="white"
                     outlined
                     rounded
                     text
@@ -57,7 +59,7 @@
         </v-col>
 
         <v-col cols="4">
-          <v-card class="mx-auto lime lighten-3" max-width="344" outlined>
+          <v-card class="mx-auto" color="#41B44C" max-width="344" outlined>
             <div>
               <h1 class="text-left mb-10">
                 Temporales
@@ -71,7 +73,8 @@
               <v-row class="justify-end mt-0">
                 <v-col cols="3">
                   <v-btn
-                    class="orange accent-4"
+                    color="#41B44C"
+                    class="white"
                     outlined
                     rounded
                     text
@@ -109,7 +112,7 @@
         </v-col>
 
         <v-col cols="4">
-          <v-card class="mx-auto lime lighten-3" max-width="344" outlined>
+          <v-card class="mx-auto" color="#41B44C" max-width="344" outlined>
             <div>
               <h1 class="text-left mb-10">
                 Bitacora <font-awesome-icon icon="fa-solid fa-list" />
@@ -119,7 +122,14 @@
             <v-container>
               <v-row class="justify-end mt-0">
                 <v-col cols="3">
-                  <v-btn class="green" outlined rounded text to="Bitacora">
+                  <v-btn
+                    color="#41B44C"
+                    class="white"
+                    outlined
+                    rounded
+                    text
+                    to="Bitacora"
+                  >
                     <v-icon>mdi-login</v-icon>
                   </v-btn>
                 </v-col>
@@ -129,7 +139,7 @@
         </v-col>
 
         <v-col cols="4">
-          <v-card class="mx-auto lime lighten-3" max-width="344" outlined>
+          <v-card class="mx-auto " color="#41B44C" max-width="344" outlined>
             <div>
               <h1 class="text-left mb-10">Trabajadores</h1>
             </div>
@@ -138,7 +148,8 @@
               <v-row class="justify-end mt-0">
                 <v-col cols="3">
                   <v-btn
-                    class="green accent-4"
+                    color="#41B44C"
+                    class="black"
                     outlined
                     rounded
                     text
@@ -161,3 +172,24 @@ export default {
   data: () => ({}),
 };
 </script>
+<style scoped>
+.boton {
+  position: relative;
+}
+
+.texto {
+  position: absolute;
+  top: -30px;
+  font-size: 12px;
+  background: rgb(220, 216, 216);
+  color: black;
+  padding: 8px;
+  visibility: hidden;
+  transition: hover 0.6s ease;
+  border-radius: 10px;
+}
+
+.boton:hover .texto {
+  visibility: visible;
+}
+</style>
