@@ -23,7 +23,7 @@
                               v-bind="attrs"
                               v-on="on"
                             >
-                              Nuevo Temporal
+                              Nuevo Trabajador
                             </v-btn>
                           </template>
                           <v-card>
@@ -89,6 +89,7 @@
                                     label="dirección"
                                     required
                                   ></v-text-field>
+
                                   <v-select
                                     :items="cities"
                                     v-model="departamento"
@@ -188,7 +189,7 @@
                                     v-model="cargo"
                                     label="Rol"
                                   ></v-text-field>
-                                </v-col> 
+                                </v-col>  
                               </v-row>
                             </v-card-text>
 
@@ -421,7 +422,6 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
 
-    tipoPersona: ["Persona Natural", "Persona Juridica"],
     nombre: "",
     tipoDocumento: [
       "C.C",
@@ -604,7 +604,7 @@ export default {
             ciudad: this.city,
             telefono: this.telefono,
             email: this.email,
-            rol: this.rol,
+            cargo: this.rol,
           },
           header
         )

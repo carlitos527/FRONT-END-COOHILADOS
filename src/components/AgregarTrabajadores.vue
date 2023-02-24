@@ -1,15 +1,15 @@
 <template>
   <v-app>
-    <v-container class="amber" fluid>
+    <v-container fluid>
       <v-row>
         <v-col>
           <v-img
-            src="https://www.coohilados.com.co/gestion/uploads/product/69/picture.jpg"
+            src="https://pbs.twimg.com/media/Cgl1KZDW4AA1G-9?format=jpg&name=4096x4096"
           >
             <v-row>
-              <v-col class="yellow lighten-3 text-center">
+              <v-col class="text-center">
                 <v-template>
-                  <v-toolbar class="amber lighten-3">
+                  <v-toolbar class="amber accent-2">
                     <v-toolbar-title>Trabajadores Asociados</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
@@ -19,7 +19,7 @@
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn
                               dark
-                              class="mb-2 light-green"
+                              class="mb-2 red darken-4"
                               v-bind="attrs"
                               v-on="on"
                             >
@@ -28,19 +28,12 @@
                           </template>
                           <v-card>
                             <v-card-title class="text-h5"
-                              >Ingrese un nuevo Trabajador</v-card-title
+                              >Ingrese nuevo Trabajador Asociado</v-card-title
                             >
                             <v-card-text>
                               <v-row>
-                                <v-col cols="12" sm="6" md="6">
-                                  <v-select
-                                    v-model="tipoPersona"
-                                    :items="tipoPersona"
-                                    label="Tipo Persona"
-                                    required
-                                  >
-                                  </v-select>
-
+                                <v-col >
+                                
                                   <v-select
                                     v-model="tipoDocumento"
                                     :items="tipoDocumento"
@@ -86,7 +79,7 @@
                                       ></v-text-field>
                                     </template>
                                     <v-date-picker
-                                      v-model="date"
+                                      v-model="fechaNacimiento"
                                       @input="menu2 = false"
                                     ></v-date-picker>
                                   </v-menu>
@@ -96,6 +89,7 @@
                                     label="dirección"
                                     required
                                   ></v-text-field>
+
                                   <v-select
                                     :items="cities"
                                     v-model="departamento"
@@ -106,7 +100,9 @@
                                     :items="town"
                                     v-model="city"
                                     item-text="Ciudad"
+                                    item-value="_id"
                                     label="Ciudad"
+                                    @change="prueba()"
                                   ></v-select>
 
                                   <v-text-field
@@ -175,7 +171,6 @@
                                     ></v-date-picker>
                                   </v-menu>
 
-
                                   <v-text-field
                                     v-model="salario"
                                     label="Salario"
@@ -186,14 +181,15 @@
                                     :items="area"
                                     v-model="areaTrabajo"
                                     label="Área de trabajo"
-                                    @change="traerAreaTrabajo()"
+                                    item-text="nombre"
+                                    item-value="_id"
                                   ></v-select>
 
                                   <v-text-field
                                     v-model="cargo"
                                     label="Rol"
                                   ></v-text-field>
-                                </v-col>
+                                </v-col>  
                               </v-row>
                             </v-card-text>
 
@@ -217,12 +213,13 @@
                   </v-toolbar>
                 </v-template>
 
+                <!--   informacion de todos los tranbajadores -->
                 <template>
                   <v-data-table
                     :headers="headers"
                     :items="trabajadores"
                     sort-by="nombre"
-                    class="elevation-1 deep-orange lighten-5"
+                    class="elevation-1 amber lighten-3"
                   >
                     <template>
                       <v-toolbar flat>
@@ -253,22 +250,6 @@
                                     v-model="documento"
                                     label="Documento"
                                     >{{ item.documento }}</v-text-field
-                                  >
-                                </v-col>
-
-                                <v-col cols="12" sm="6" md="4">
-                                  <v-text-field
-                                    v-model="telefono"
-                                    label="Telefono"
-                                    >{{ item.telefono }}</v-text-field
-                                  >
-                                </v-col>
-
-                                <v-col cols="12" sm="6" md="4">
-                                  <v-text-field
-                                    v-model="email"
-                                    label="E-mail"
-                                    >{{ item.email }}</v-text-field
                                   >
                                 </v-col>
 
@@ -379,7 +360,6 @@
                         <span class="blue--text"> Vacaciones </span>
                       </div>
                     </template>
-
                     <template v-slot:[`item.fechaNacimiento`]="{ item }">
                       <span>
                         {{ fecha(item.fechaNacimiento) }}
@@ -490,6 +470,11 @@ export default {
           console.log(err);
         });
     },
+    prueba(){
+      console.log("ciudad: "+this.city);
+    },
+
+    
     traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")
@@ -508,24 +493,20 @@ export default {
         .then((response) => {
           // response.data.ciudad.reduce((obj, item) => (obj[item.Departamento] = true, obj), {});
           this.cities = response.data.departamentos;
-          console.log(this.cities);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    traerCiudades(depart) {
-      depart = this.departamento;
-      console.log(depart);
+     traerCiudades() {
       axios
         .get(
-          `https://back-coohilados.vercel.app/api/ciudad/ciudad/get/${depart}`
+          `https://back-coohilados.vercel.app/api/ciudad/ciudad/get/${this.departamento}`
         )
         .then((response) => {
           //this.town = response.data.city.reduce((obj, item) => (obj[item.Ciudad] = true, obj), {});
           //this.ciudad = response.data.city.filter(c => { return c.Ciudad.length > 3})
           this.town = response.data.city;
-
           console.log(this.town);
         })
         .catch((err) => {
@@ -578,16 +559,13 @@ export default {
         .post(
           "https://back-coohilados.vercel.app/api/servicio/agregar",
           {
-            tipoPersona: this.tipoPersona,
             tipoDocumento: this.tipoDocumento,
             documento: this.documento,
             sexo: this.sexo,
             nombre: this.nombre,
             fechaNacimiento: this.fechaNacimiento,
-            tipoContrato: this.tipoContrato,
-            fechaInicio: this.fechaInicio,
+            fechaInicio: this.fechaInicio, 
             fechaFin: this.fechaFin,
-            cargo: this.cargo,
             areaTrabajo: this.areaTrabajo,
             salario: this.salario,
             barrio: this.barrio,
@@ -595,8 +573,7 @@ export default {
             ciudad: this.city,
             telefono: this.telefono,
             email: this.email,
-            estado: this.estado,
-            rol: this.rol,
+            cargo: this.rol,
           },
           header
         )
