@@ -17,6 +17,7 @@ import agregardirectos from "../components/AgregarDirecto.vue"
 import infousuario from "../components/Infousuario.vue"
 import agregarusuario from "../components/Agregarusuario.vue"
 
+import trabajadores from "../components/Trabajadores.vue"
 
 export const routes =[
 
@@ -38,5 +39,7 @@ export const routes =[
 
     {path: "/Infousuario", component:infousuario},
     {path: "/Agregarusuario", component:agregarusuario},
+
+    {path: "/Trabajadores", component:trabajadores},
    
 ]

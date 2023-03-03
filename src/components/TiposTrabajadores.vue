@@ -141,7 +141,7 @@
         <v-col cols="4">
           <v-card class="mx-auto " color="#41B44C" max-width="344" outlined>
             <div>
-              <h1 class="text-left mb-10">Trabajadores</h1>
+              <h3 class="text-left mb-10">Cantidad de Trabajadores</h3>
             </div>
             <v-spacer></v-spacer>
             <v-container>
@@ -154,6 +154,31 @@
                     rounded
                     text
                     to="/setup"
+                  >
+                    <v-icon>mdi-login</v-icon></v-btn
+                  >
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
+        </v-col>
+
+        <v-col cols="4">
+          <v-card class="mx-auto " color="#41B44C" max-width="344" outlined>
+            <div>
+              <h3 class="text-left mb-10">Todos Trabajadores</h3>
+            </div>
+            <v-spacer></v-spacer>
+            <v-container>
+              <v-row class="justify-end mt-0">
+                <v-col cols="3">
+                  <v-btn
+                    color="#41B44C"
+                    class="black"
+                    outlined
+                    rounded
+                    text
+                    to="/Trabajadores"
                   >
                     <v-icon>mdi-login</v-icon></v-btn
                   >

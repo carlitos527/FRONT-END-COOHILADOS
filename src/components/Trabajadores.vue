@@ -10,206 +10,9 @@
               <v-col class="text-center">
                 <v-template>
                   <v-toolbar class="amber accent-2">
-                    <v-toolbar-title>Trabajadores Directos</v-toolbar-title>
+                    <v-toolbar-title>Trabajadores </v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
-                    <template>
-                      <div class="text-center">
-                        <v-dialog max-width="800px" v-model="dialog">
-                          <template v-slot:activator="{ on, attrs }">
-                            <v-btn
-                              dark
-                              class="mb-2 red darken-4"
-                              v-bind="attrs"
-                              v-on="on"
-                            >
-                              Nuevo Trabajador
-                            </v-btn>
-                          </template>
-                          <v-card>
-                            <v-card-title class="text-h5"
-                              >Ingrese nuevo Trabajador Directos</v-card-title
-                            >
-                            <v-card-text>
-                              <v-row>
-                                <v-col >
-                                
-                                  <v-select
-                                    v-model="tipoDocumento"
-                                    :items="tipoDocumento"
-                                    label="Tipo de Documento"
-                                    required
-                                  ></v-select>
-
-                                  <v-text-field
-                                    v-model="documento"
-                                    label="Documento"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-select
-                                    v-model="sexo"
-                                    :items="sexo"
-                                    label="Sexo"
-                                    required
-                                  ></v-select>
-
-                                  <v-text-field
-                                    v-model="nombre"
-                                    label="Nombre y Apellidos"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-menu
-                                    v-model="menu2"
-                                    :close-on-content-click="false"
-                                    :nudge-right="40"
-                                    transition="scale-transition"
-                                    offset-y
-                                    min-width="auto"
-                                  >
-                                    <template v-slot:activator="{ on, attrs }">
-                                      <v-text-field
-                                        v-model="fechaNacimiento"
-                                        label="Escoja la Fecha de Nacimiento"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        v-bind="attrs"
-                                        v-on="on"
-                                      ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                      v-model="fechaNacimiento"
-                                      @input="menu2 = false"
-                                    ></v-date-picker>
-                                  </v-menu>
-
-                                  <v-text-field
-                                    v-model="barrio"
-                                    label="dirección"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-select
-                                    :items="cities"
-                                    v-model="departamento"
-                                    label="Departamento"
-                                    @change="traerCiudades()"
-                                  ></v-select>
-                                  <v-select
-                                    :items="town"
-                                    v-model="city"
-                                    item-text="Ciudad"
-                                    item-value="_id"
-                                    label="Ciudad"
-                                    @change="prueba()"
-                                  ></v-select>
-
-                                  <v-text-field
-                                    v-model="telefono"
-                                    label="Telefono"
-                                    required
-                                  ></v-text-field>
-                                  <v-text-field
-                                    v-model="email"
-                                    label="E-mail"
-                                    required
-                                  ></v-text-field>
-                                </v-col>
-
-                                <v-col cols="12" sm="6" md="6">
-                                  <v-text-field
-                                    v-model="tipoContrato"
-                                    label="Tipo de contrato del trabajador"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-menu
-                                    v-model="menu3"
-                                    :close-on-content-click="false"
-                                    :nudge-right="40"
-                                    transition="scale-transition"
-                                    offset-y
-                                    min-width="auto"
-                                  >
-                                    <template v-slot:activator="{ on, attrs }">
-                                      <v-text-field
-                                        v-model="fechaInicio"
-                                        label="Escoja la Fecha de inicio de contrato"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        v-bind="attrs"
-                                        v-on="on"
-                                      ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                      v-model="fechaInicio"
-                                      @input="menu3 = false"
-                                    ></v-date-picker>
-                                  </v-menu>
-                                  <v-menu
-                                    v-model="menu4"
-                                    :close-on-content-click="false"
-                                    :nudge-right="40"
-                                    transition="scale-transition"
-                                    offset-y
-                                    min-width="auto"
-                                  >
-                                    <template v-slot:activator="{ on, attrs }">
-                                      <v-text-field
-                                        v-model="fechaFin"
-                                        label="Escoja la Fecha de finalización de contrato"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        v-bind="attrs"
-                                        v-on="on"
-                                      ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                      v-model="fechaFin"
-                                      @input="menu4 = false"
-                                    ></v-date-picker>
-                                  </v-menu>
-
-                                  <v-text-field
-                                    v-model="salario"
-                                    label="Salario"
-                                    required
-                                  ></v-text-field>
-
-                                  <v-select
-                                    :items="area"
-                                    v-model="areaTrabajo"
-                                    label="Área de trabajo"
-                                    item-text="nombre"
-                                    item-value="_id"
-                                  ></v-select>
-
-                                  <v-text-field
-                                    v-model="cargo"
-                                    label="Rol"
-                                  ></v-text-field>
-                                </v-col>  
-                              </v-row>
-                            </v-card-text>
-
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close()"
-                                >Cancel</v-btn
-                              >
-                              <v-btn
-                                color="blue darken-1"
-                                text
-                                @click="agregar()"
-                                >Guardar</v-btn
-                              >
-                              <v-spacer></v-spacer>
-                            </v-card-actions>
-                          </v-card>
-                        </v-dialog>
-                      </div>
-                    </template>
                   </v-toolbar>
                 </v-template>
 
@@ -324,7 +127,7 @@
                           icon
                           dark
                           class="mb-2"
-                          @click="detalleDirecto(item)"
+                          @click="detalleTrabajador(item),detalleDirecto(item)"
                         >
                           <font-awesome-icon icon="fa-solid fa-eye" />
                           <div class="texto">
@@ -338,7 +141,7 @@
                           icon
                           dark
                           class="mb-2"
-                          @click="detalleDirecto(item)"
+                          @click="detalleTrabajador(item),detalleDirecto(item)"
                         >
                           <font-awesome-icon icon="fa-solid fa-pencil" />
                           <div class="texto">
@@ -388,7 +191,7 @@
 <script>
 import axios from "axios";
 export default {
-  name: "PagesAgregarDirecto",
+  name: "PagesTrabajadores",
   data: () => ({
     fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
@@ -448,8 +251,33 @@ export default {
     directos: [],
   }),
   methods: {
-    detalleDirecto(item) {
+    detalleTrabajador(item) {
+      this.$router.push("/Infotrabajador");
+      this.$router.push("/Infotemporal");
       this.$router.push("/Infodirecto");
+      this.$store.dispatch("setDatos", item);
+      console.log(this.$store.state.datos);
+    },
+    close2() {
+      this.dialog = false;
+    },
+    traerTrabajador() {
+      axios
+        .get("https://back-coohilados.vercel.app/api/servicio")
+        .then((response) => {
+          this.trabajadores = response.data.trabajador;
+          console.log(this.trabajadores);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+        
+    },
+
+
+    detalleTemporal(item) {
+      this.$router.push("/Infotemporal");
       this.$store.dispatch("setDatos", item);
       console.log(this.$store.state.datos);
     },
@@ -457,8 +285,29 @@ export default {
       this.dialog = false;
     },
 
-    prueba(){
-      console.log("ciudad: "+this.city);
+    traerTemporal() {
+      axios
+        .get("https://back-coohilados.vercel.app/api/ayudaTemporal")
+        .then((response) => {
+          this.temporales = response.data.temporal;
+          console.log(this.temporales);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
+    detalleDirecto(item) {
+      this.$router.push("/Infodirecto");
+      this.$store.dispatch("setDatos", item);
+      console.log(this.$store.state.datos);
+    },
+    close1() {
+      this.dialog = false;
+    },
+
+    prueba() {
+      console.log("ciudad: " + this.city);
     },
 
     traerDirecto() {
@@ -473,7 +322,7 @@ export default {
         });
     },
 
-     traerAreaTrabajo() {
+    traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")
         .then((response) => {
@@ -485,7 +334,7 @@ export default {
           console.log(err);
         });
     },
-    
+
     traerDepartamentos() {
       axios
         .get("https://back-coohilados.vercel.app/api/ciudad/departamento/get")
@@ -497,7 +346,7 @@ export default {
           console.log(err);
         });
     },
-     traerCiudades() {
+    traerCiudades() {
       axios
         .get(
           `https://back-coohilados.vercel.app/api/ciudad/ciudad/get/${this.departamento}`
@@ -512,29 +361,37 @@ export default {
           console.log(err);
         });
     },
-    
+
     cambiarEstado(item) {
       if (item.estado == 1) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/trabajadorDirecto/desactivar/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/trabajadorDirecto/desactivar/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
           .catch((err) => {
             console.log(err);
           });
-      }if (item.estado ==3) {
+      }
+      if (item.estado == 3) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/trabajadorDirecto/activar/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/trabajadorDirecto/activar/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
           .catch((err) => {
             console.log(err);
           });
-      } if(item.estado==2) {
+      }
+      if (item.estado == 2) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/trabajadorDirecto/vacaciones/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/trabajadorDirecto/vacaciones/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
@@ -563,7 +420,9 @@ export default {
       console.log(id);
       if (id) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/trabajadorDirecto/activar/${id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/trabajadorDirecto/activar/${id}`
+          )
           .then((response) => {
             console.log(response);
           })
@@ -584,7 +443,7 @@ export default {
             sexo: this.sexo,
             nombre: this.nombre,
             fechaNacimiento: this.fechaNacimiento,
-            fechaInicio: this.fechaInicio, 
+            fechaInicio: this.fechaInicio,
             fechaFin: this.fechaFin,
             areaTrabajo: this.areaTrabajo,
             salario: this.salario,

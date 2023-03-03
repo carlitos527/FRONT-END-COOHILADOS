@@ -324,7 +324,7 @@
                           icon
                           dark
                           class="mb-2"
-                          @click="detalleTrabajador(item)"
+                          @click="detalleTemporal(item)"
                         >
                           <font-awesome-icon icon="fa-solid fa-eye" />
                           <div class="texto">
@@ -338,7 +338,7 @@
                           icon
                           dark
                           class="mb-2"
-                          @click="detalleTrabajador(item)"
+                          @click="detalleTemporal(item)"
                         >
                           <font-awesome-icon icon="fa-solid fa-pencil" />
                           <div class="texto">

@@ -90,10 +90,7 @@
                               v-model="rol"
                               label="Rol"
                             ></v-text-field>
-                            <v-text-field
-                              v-model="estado"
-                              label="Estado"
-                            ></v-text-field>
+                           
                           </v-col>
                         </v-row>
                       </v-card-text>
@@ -255,7 +252,6 @@ export default {
     telefono: "",
     email: "",
     password: "",
-    estado: "",
     rol: "",
     cities: [],
     town: [],
