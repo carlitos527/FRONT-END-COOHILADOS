@@ -186,8 +186,8 @@
                                   ></v-select>
 
                                   <v-text-field
-                                    v-model="cargo"
-                                    label="Rol"
+                                    v-model="rol"
+                                    label="Cargo"
                                   ></v-text-field>
                                 </v-col>  
                               </v-row>
@@ -407,7 +407,7 @@ export default {
     dialog: false,
     dialogEdit: false,
     headers: [
-      { text: "Tipo Documento", value: "tipoDocumento" },
+       { text: "Tipo Documento", value: "tipoDocumento" },
       { text: "Documento", value: "documento" },
       { text: "Nombre", value: "nombre" },
       { text: "Sexo", value: "sexo" },
@@ -434,7 +434,6 @@ export default {
     sexo: ["M", "F"],
     tipoContrato: "",
     tiempoLaborado: "",
-    cargo: "",
     areaTrabajo: "",
     lugar: "",
     salario: "",

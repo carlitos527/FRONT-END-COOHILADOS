@@ -186,8 +186,8 @@
                                   ></v-select>
 
                                   <v-text-field
-                                    v-model="cargo"
-                                    label="Rol"
+                                    v-model="rol"
+                                    label="Cargo"
                                   ></v-text-field>
                                 </v-col>  
                               </v-row>
@@ -407,24 +407,24 @@ export default {
     dialog: false,
     dialogEdit: false,
     headers: [
-      { text: "Tipo Documento", value: "tipoDocumento" },
+       { text: "Tipo Documento", value: "tipoDocumento" },
       { text: "Documento", value: "documento" },
       { text: "Nombre", value: "nombre" },
       { text: "Sexo", value: "sexo" },
-      { text: "direccion", value: "barrio" },
       { text: "Cumpleaños", value: "fechaNacimiento" },
-      { text: "Tipo de contrato", value: "tipoContrato" },
+       { text: "Direccion", value: "barrio" },
+      { text: "Tipo de contrato", value: "tipoContrato"},
       { text: "Inicio Cotrato", value: "fechaInicio" },
       { text: "Fin Cotrato", value: "fechaFin" },
       { text: "Tiempo", value: "tiempoLaborado" },
-      { text: "Cargo", value: "cargo" },
-      { text: "Procesos", value: "areaTrabajo.nombre" },
+      { text: "Area de Trabajo", value: "areaTrabajo.nombre" },
       { text: "Salario", value: "salario" },
-      { text: "Estado Actual", value: "estado" },
-      { text: "Acciones", value: "actions", sortable: false },
+      { text: "Cargo", value: "rol" },
+      { text: "Estado", value: "estado" },
+      { text: "Actions", value: "actions", sortable: false },
     ],
 
-    tipoPersona: ["Persona Natural", "Persona Juridica"],
+  
     nombre: "",
     tipoDocumento: [
       "C.C",
@@ -567,13 +567,14 @@ export default {
             fechaInicio: this.fechaInicio, 
             fechaFin: this.fechaFin,
             areaTrabajo: this.areaTrabajo,
+            tipoContrato:this.tipoContrato,
             salario: this.salario,
             barrio: this.barrio,
             departamento: this.departamento,
             ciudad: this.city,
             telefono: this.telefono,
             email: this.email,
-            cargo: this.rol,
+            rol: this.rol,
           },
           header
         )

@@ -10,7 +10,7 @@
               <v-col class="text-center">
                 <v-template>
                   <v-toolbar class="amber accent-2">
-                    <v-toolbar-title>Trabajadores Directos</v-toolbar-title>
+                    <v-toolbar-title>Trabajadores Directo</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
                     <template>
@@ -28,7 +28,7 @@
                           </template>
                           <v-card>
                             <v-card-title class="text-h5"
-                              >Ingrese nuevo Trabajador Directos</v-card-title
+                              >Ingrese nuevo Trabajador directo</v-card-title
                             >
                             <v-card-text>
                               <v-row>
@@ -186,8 +186,8 @@
                                   ></v-select>
 
                                   <v-text-field
-                                    v-model="cargo"
-                                    label="Rol"
+                                    v-model="rol"
+                                    label="Cargo"
                                   ></v-text-field>
                                 </v-col>  
                               </v-row>
@@ -412,13 +412,14 @@ export default {
       { text: "Nombre", value: "nombre" },
       { text: "Sexo", value: "sexo" },
       { text: "Cumpleaños", value: "fechaNacimiento" },
+       { text: "Direccion", value: "barrio" },
+      { text: "Tipo de contrato", value: "tipoContrato"},
       { text: "Inicio Cotrato", value: "fechaInicio" },
       { text: "Fin Cotrato", value: "fechaFin" },
       { text: "Tiempo", value: "tiempoLaborado" },
-      { text: "Cargo", value: "cargo" },
       { text: "Area de Trabajo", value: "areaTrabajo.nombre" },
       { text: "Salario", value: "salario" },
-      { text: "Rol", value: "rol" },
+      { text: "Cargo", value: "rol" },
       { text: "Estado", value: "estado" },
       { text: "Actions", value: "actions", sortable: false },
     ],
@@ -433,7 +434,6 @@ export default {
     documento: "",
     sexo: ["M", "F"],
     tiempoLaborado: "",
-    cargo: "",
     areaTrabajo: "",
     salario: "",
     direccion: "",
@@ -587,13 +587,14 @@ export default {
             fechaInicio: this.fechaInicio, 
             fechaFin: this.fechaFin,
             areaTrabajo: this.areaTrabajo,
+            tipoContrato:this.tipoContrato,
             salario: this.salario,
             barrio: this.barrio,
             departamento: this.departamento,
             ciudad: this.city,
             telefono: this.telefono,
             email: this.email,
-            cargo: this.rol,
+            rol: this.rol,
           },
           header
         )
