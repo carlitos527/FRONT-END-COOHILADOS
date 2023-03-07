@@ -1,3 +1,5 @@
+
+
 <template>
   <v-app>
     <v-container fluid>
@@ -10,7 +12,7 @@
               <v-col class="text-center">
                 <v-template>
                   <v-toolbar class="amber accent-2">
-                    <v-toolbar-title>Trabajadores Directo</v-toolbar-title>
+                    <v-toolbar-title>Trabajadores Directo </v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
                     <template>
@@ -28,7 +30,7 @@
                           </template>
                           <v-card>
                             <v-card-title class="text-h5"
-                              >Ingrese nuevo Trabajador directo</v-card-title
+                              >Ingrese nuevo Trabajador Asociado</v-card-title
                             >
                             <v-card-text>
                               <v-row>
@@ -407,7 +409,7 @@ export default {
     dialog: false,
     dialogEdit: false,
     headers: [
-      { text: "Tipo Documento", value: "tipoDocumento" },
+       { text: "Tipo Documento", value: "tipoDocumento" },
       { text: "Documento", value: "documento" },
       { text: "Nombre", value: "nombre" },
       { text: "Sexo", value: "sexo" },
@@ -424,19 +426,22 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
 
+  
     nombre: "",
     tipoDocumento: [
-      "Cedula de Ciudadania",
+      "C.C",
       "Cedula de Extranjeria",
       "Pasaporte",
       "Numero de Identificacion tributaria",
     ],
     documento: "",
-    sexo: ["M", "F"],
+    sexo: ["M", "F"], 
+    tipoContrato: "",
     tiempoLaborado: "",
+    cargo: "",
     areaTrabajo: "",
     salario: "",
-    direccion: "",
+    barrio: "",
     departamento: "",
     city: "",
     telefono: "",
@@ -448,7 +453,7 @@ export default {
     directos: [],
   }),
   methods: {
-    detalleDirecto(item) {
+     detalleDirecto(item) {
       this.$router.push("/Infodirecto");
       this.$store.dispatch("setDatos", item);
       console.log(this.$store.state.datos);
@@ -473,7 +478,10 @@ export default {
         });
     },
 
-     traerAreaTrabajo() {
+    
+
+    
+    traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")
         .then((response) => {
@@ -485,7 +493,6 @@ export default {
           console.log(err);
         });
     },
-    
     traerDepartamentos() {
       axios
         .get("https://back-coohilados.vercel.app/api/ciudad/departamento/get")
@@ -512,7 +519,6 @@ export default {
           console.log(err);
         });
     },
-    
     cambiarEstado(item) {
       if (item.estado == 1) {
         axios
@@ -572,6 +578,8 @@ export default {
           });
       }
     },
+
+
     agregar() {
       let header = { headers: { "x-token": this.$store.state.token } };
       console.log(header);
@@ -614,14 +622,15 @@ export default {
   },
 
   created() {
-    this.traerDepartamentos();
-
     this.traerAreaTrabajo();
-
+    this.traerDepartamentos();
+    //this.traerCiudades()
+    //this.agregar()
     this.traerDirecto();
   },
 };
-</script> 
+</script>
+
 <style scoped>
 .boton {
   position: relative;
