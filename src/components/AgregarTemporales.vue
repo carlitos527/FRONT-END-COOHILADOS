@@ -609,9 +609,22 @@ export default {
         )
         .then((response) => {
           console.log(response);
+          this.$store.dispatch("setToken", response.data.token);
+          this.$store.dispatch("setDatos", response.data.item);
+          this.$router.push("/AgregarTemporal");
+
+          this.$swal({
+            icon: "success",
+            title: "El trabajador se agrego correctamente",
+          });
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.log(error);
+          this.loading = false;
+          this.$swal({
+            icon: "error",
+            title: "Error al guardar el trabajador",
+          });
         });
     },
     fecha(r) {
