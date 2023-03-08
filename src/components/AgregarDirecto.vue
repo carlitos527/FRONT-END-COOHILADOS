@@ -17,7 +17,11 @@
                     <v-spacer></v-spacer>
                     <template>
                       <div class="text-center">
-                        <v-dialog max-width="1200px" v-model="dialog"  persistent>
+                        <v-dialog
+                          max-width="1600px"
+                          v-model="dialog"
+                          persistent
+                        >
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn
                               dark
@@ -79,6 +83,7 @@
                                         v-on="on"
                                       ></v-text-field>
                                     </template>
+
                                     <v-date-picker
                                       v-model="fechaNacimiento"
                                       @input="menu2 = false"
@@ -106,19 +111,23 @@
                                     @change="prueba()"
                                   ></v-select>
 
+                                </v-col>
+
+                                <v-col cols="12" sm="6" md="6">
+
+                                  
                                   <v-text-field
                                     v-model="telefono"
                                     label="Telefono"
                                     required
                                   ></v-text-field>
+
                                   <v-text-field
                                     v-model="email"
                                     label="E-mail"
                                     required
                                   ></v-text-field>
-                                </v-col>
 
-                                <v-col cols="12" sm="6" md="6">
                                   <v-text-field
                                     v-model="tipoContrato"
                                     label="Tipo de contrato del trabajador"
@@ -192,7 +201,6 @@
                                   ></v-text-field>
                                 </v-col>
                               </v-row>
-                              
                             </v-card-text>
 
                             <v-card-actions>
@@ -445,8 +453,6 @@ export default {
     tipoDocumento: [
       "C.C",
       "Cedula de Extranjeria",
-      "Pasaporte",
-      "Numero de Identificacion tributaria",
     ],
     documento: "",
     sexo: ["M", "F"],
@@ -601,7 +607,7 @@ export default {
     },
 
     agregar() {
-      this.loading=true;
+      this.loading = true;
       console.log(this.$store.state.token);
       let header = { headers: { "x-token": this.$store.state.token } };
       console.log(header);
@@ -630,11 +636,11 @@ export default {
         )
         .then((response) => {
           this.traerDirecto();
-          this.dialog=false;
+          this.dialog = false;
           console.log(response);
           this.$store.dispatch("setDatos", response.data.item);
           this.$router.push("/AgregarDirecto");
-          this.loading= false;
+          this.loading = false;
 
           this.$swal({
             icon: "success",
@@ -643,7 +649,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          this.dialog=false
+          this.dialog = false;
           this.loading = false;
           this.$swal({
             icon: "error",
@@ -670,10 +676,6 @@ export default {
 </script>
 
 <style scoped>
-
-.formulario{
-  width: 1200px;
-}
 
 .boton {
   position: relative;

@@ -15,7 +15,7 @@
                     <v-spacer></v-spacer>
                     <template>
                       <div class="text-center">
-                        <v-dialog max-width="800px" v-model="dialog">
+                        <v-dialog max-width="1600px" v-model="dialog">
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn
                               dark
@@ -32,8 +32,7 @@
                             >
                             <v-card-text>
                               <v-row>
-                                <v-col >
-                                
+                                <v-col>
                                   <v-select
                                     v-model="tipoDocumento"
                                     :items="tipoDocumento"
@@ -104,8 +103,10 @@
                                     label="Ciudad"
                                     @change="prueba()"
                                   ></v-select>
+                                </v-col>
 
-                                  <v-text-field
+                                <v-col cols="12" sm="6" md="6">
+<v-text-field
                                     v-model="telefono"
                                     label="Telefono"
                                     required
@@ -115,9 +116,7 @@
                                     label="E-mail"
                                     required
                                   ></v-text-field>
-                                </v-col>
 
-                                <v-col cols="12" sm="6" md="6">
                                   <v-text-field
                                     v-model="tipoContrato"
                                     label="Tipo de contrato del trabajador"
@@ -189,7 +188,7 @@
                                     v-model="rol"
                                     label="Cargo"
                                   ></v-text-field>
-                                </v-col>  
+                                </v-col>
                               </v-row>
                             </v-card-text>
 
@@ -382,6 +381,19 @@
           </v-img>
         </v-col>
       </v-row>
+      <v-row class="align-center">
+        <v-col>
+          <v-overlay :value="loading">
+            <v-progress-circular
+              v-show="loading == true"
+              :size="70"
+              :width="7"
+              color="black"
+              indeterminate
+            ></v-progress-circular>
+          </v-overlay>
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
@@ -390,6 +402,7 @@ import axios from "axios";
 export default {
   name: "PagesAgregarTrabajadores",
   data: () => ({
+    loading: false,
     fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
@@ -407,13 +420,13 @@ export default {
     dialog: false,
     dialogEdit: false,
     headers: [
-       { text: "Tipo Documento", value: "tipoDocumento" },
+      { text: "Tipo Documento", value: "tipoDocumento" },
       { text: "Documento", value: "documento" },
       { text: "Nombre", value: "nombre" },
       { text: "Sexo", value: "sexo" },
       { text: "Cumpleaños", value: "fechaNacimiento" },
-       { text: "Direccion", value: "barrio" },
-      { text: "Tipo de contrato", value: "tipoContrato"},
+      { text: "Direccion", value: "barrio" },
+      { text: "Tipo de contrato", value: "tipoContrato" },
       { text: "Inicio Cotrato", value: "fechaInicio" },
       { text: "Fin Cotrato", value: "fechaFin" },
       { text: "Tiempo", value: "tiempoLaborado" },
@@ -424,16 +437,14 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
 
-  
     nombre: "",
     tipoDocumento: [
       "C.C",
       "Cedula de Extranjeria",
-      "Pasaporte",
-      "Numero de Identificacion tributaria",
+      
     ],
     documento: "",
-    sexo: ["M", "F"], 
+    sexo: ["M", "F"],
     tipoContrato: "",
     tiempoLaborado: "",
     cargo: "",
@@ -470,11 +481,10 @@ export default {
           console.log(err);
         });
     },
-    prueba(){
-      console.log("ciudad: "+this.city);
+    prueba() {
+      console.log("ciudad: " + this.city);
     },
 
-    
     traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")
@@ -498,7 +508,7 @@ export default {
           console.log(err);
         });
     },
-     traerCiudades() {
+    traerCiudades() {
       axios
         .get(
           `https://back-coohilados.vercel.app/api/ciudad/ciudad/get/${this.departamento}`
@@ -553,6 +563,7 @@ export default {
       this.traerTrabajador();
     },
     agregar() {
+      this.loading = true;
       let header = { headers: { "x-token": this.$store.state.token } };
       console.log(header);
       axios
@@ -564,10 +575,10 @@ export default {
             sexo: this.sexo,
             nombre: this.nombre,
             fechaNacimiento: this.fechaNacimiento,
-            fechaInicio: this.fechaInicio, 
+            fechaInicio: this.fechaInicio,
             fechaFin: this.fechaFin,
             areaTrabajo: this.areaTrabajo,
-            tipoContrato:this.tipoContrato,
+            tipoContrato: this.tipoContrato,
             salario: this.salario,
             barrio: this.barrio,
             departamento: this.departamento,
@@ -579,9 +590,12 @@ export default {
           header
         )
         .then((response) => {
+         this.traerTrabajador();
+          this.dialog = false;
           console.log(response);
           this.$store.dispatch("setDatos", response.data.item);
           this.$router.push("/AgregarTrabajadores");
+          this.loading = false;
 
           this.$swal({
             icon: "success",
@@ -590,11 +604,12 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          this.dialog = false;
           this.loading = false;
           this.$swal({
             icon: "error",
-            title: "Error al guardar el trabajador", 
-          }); 
+            title: "Error al guardar el trabajador",
+          });
         });
     },
     fecha(r) {

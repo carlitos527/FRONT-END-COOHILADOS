@@ -15,7 +15,7 @@
                     <v-spacer></v-spacer>
                     <template>
                       <div class="text-center">
-                        <v-dialog max-width="800px" v-model="dialog">
+                        <v-dialog max-width="1600px" v-model="dialog">
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn
                               dark
@@ -104,8 +104,10 @@
                                     label="Ciudad"
                                     @change="prueba()"
                                   ></v-select>
+                                </v-col>
 
-                                  <v-text-field
+                                <v-col cols="12" sm="6" md="6">
+                                   <v-text-field
                                     v-model="telefono"
                                     label="Telefono"
                                     required
@@ -115,9 +117,6 @@
                                     label="E-mail"
                                     required
                                   ></v-text-field>
-                                </v-col>
-
-                                <v-col cols="12" sm="6" md="6">
                                   <v-text-field
                                     v-model="tipoContrato"
                                     label="Tipo de contrato del trabajador"
