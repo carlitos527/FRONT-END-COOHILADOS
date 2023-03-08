@@ -200,19 +200,12 @@
                               <v-btn color="blue darken-1" text @click="close()"
                                 >Cancel</v-btn
                               >
-                              <v-card-action>
-                                <v-flex class="text-center">
-                                  <v-btn
-                                    rounded
-                                    class="ma-2"
-                                    outlined
-                                    color="green"
-                                    @click="login()"
-                                  >
-                                    guardar
-                                  </v-btn>
-                                </v-flex>
-                              </v-card-action>
+                              <v-btn
+                                color="blue darken-1"
+                                text
+                                @click="agregar()"
+                                >Guardar</v-btn
+                              >
 
                               <v-spacer></v-spacer>
                             </v-card-actions>
