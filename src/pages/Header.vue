@@ -5,10 +5,9 @@
     color="#07451E"
     >
       <v-app-bar-nav-icon class="white--text" @click="drawer = true"></v-app-bar-nav-icon><br><br>
-
       <v-row>
         <v-col cols="1">
-           <v-list-item to="/Home">
+           <v-list-item to="/Home" v-if="this.state.token!=''">
             <v-list-item-icon  class="white--text mb-2 mt-10">
               <font-awesome-icon icon="fa-solid fa-house" />
             </v-list-item-icon>
@@ -18,7 +17,7 @@
         <v-toolbar-title class="white--text mb-2 mt-7"><h3>COOHILADOS</h3>  <br>
         </v-toolbar-title>
       </v-col>
-      <v-col><p class="black--text mb-2 mt-4" v-show="$store.state.token !=''">{{ persona.nombre }}</p></v-col>
+      <v-col><p class="black--text mb-2 mt-4" v-show="this.$store.state.token !=''">{{ persona.nombre }}</p></v-col>
       </v-row> 
       
       
@@ -26,11 +25,11 @@
         <v-icon class="white--text" @click="buscar()">mdi-magnify</v-icon>
       </v-btn> -->
 
-      <v-btn class="white--text mx-6" icon v-show="$store.state.token != ''" @click="cerrarSesion()">
+      <v-btn class="white--text mx-6" icon v-show="this.$store.state.token != ''" @click="cerrarSesion()">
         <v-icon>mdi-account-off</v-icon> </v-btn>
       <v-menu left bottom> </v-menu>
       <div class="mx-6">
-        <v-btn  color="orange darken-2" fab dark to="/" v-show="$store.state.token === ''" >
+        <v-btn  color="orange darken-2" fab dark to="/" v-show="this.$store.state.token === ''" >
           <v-icon>mdi-account-circle</v-icon>
 
         </v-btn>

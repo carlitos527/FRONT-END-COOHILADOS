@@ -17,7 +17,7 @@
                     <v-spacer></v-spacer>
                     <template>
                       <div class="text-center">
-                        <v-dialog max-width="800px" v-model="dialog">
+                        <v-dialog max-width="1200px" v-model="dialog"  persistent>
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn
                               dark
@@ -385,6 +385,19 @@
           </v-img>
         </v-col>
       </v-row>
+      <v-row class="align-center">
+        <v-col>
+          <v-overlay :value="loading">
+            <v-progress-circular
+              v-show="loading == true"
+              :size="70"
+              :width="7"
+              color="black"
+              indeterminate
+            ></v-progress-circular>
+          </v-overlay>
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
@@ -393,6 +406,7 @@ import axios from "axios";
 export default {
   name: "PagesAgregarDirecto",
   data: () => ({
+    loading: false,
     fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
@@ -587,6 +601,7 @@ export default {
     },
 
     agregar() {
+      this.loading=true;
       console.log(this.$store.state.token);
       let header = { headers: { "x-token": this.$store.state.token } };
       console.log(header);
@@ -614,9 +629,12 @@ export default {
           header
         )
         .then((response) => {
+          this.traerDirecto();
+          this.dialog=false;
           console.log(response);
           this.$store.dispatch("setDatos", response.data.item);
           this.$router.push("/AgregarDirecto");
+          this.loading= false;
 
           this.$swal({
             icon: "success",
@@ -625,6 +643,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          this.dialog=false
           this.loading = false;
           this.$swal({
             icon: "error",
@@ -651,6 +670,11 @@ export default {
 </script>
 
 <style scoped>
+
+.formulario{
+  width: 1200px;
+}
+
 .boton {
   position: relative;
 }
