@@ -15,7 +15,7 @@
                     <v-spacer></v-spacer>
                     <template>
                       <div class="text-center">
-                        <v-dialog max-width="1600px" v-model="dialog">
+                        <v-dialog max-width="1600px" v-model="dialog" persistent>
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn
                               dark
@@ -381,6 +381,19 @@
           </v-img>
         </v-col>
       </v-row>
+      <v-row class="align-center">
+        <v-col>
+          <v-overlay :value="loading">
+            <v-progress-circular
+              v-show="loading == true"
+              :size="70"
+              :width="7"
+              color="black"
+              indeterminate
+            ></v-progress-circular>
+          </v-overlay>
+        </v-col>
+      </v-row>
     </v-container>
   </v-app>
 </template>
@@ -389,6 +402,7 @@ import axios from "axios";
 export default {
   name: "PagesAgregarTemporales",
   data: () => ({
+    loading: false,
     fechaInicio: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
       .toISOString()
       .substr(0, 10),
@@ -425,8 +439,6 @@ export default {
     tipoDocumento: [
       "C.C",
       "C.Extranjeria",
-      "Pasaporte",
-      "Numero de Identificacion tributaria",
     ],
 
     documento: "",
@@ -607,9 +619,12 @@ export default {
           header
         )
         .then((response) => {
+          this.traerTemporal();
+          this.dialog = false;
           console.log(response);
           this.$store.dispatch("setDatos", response.data.item);
-          this.$router.push("/AgregarTemporales");
+          this.$router.push("/Agregartemporales");
+          this.loading = false;
 
           this.$swal({
             icon: "success",
@@ -618,6 +633,7 @@ export default {
         })
         .catch((error) => {
           console.log(error);
+          this.dialog = false;
           this.loading = false;
           this.$swal({
             icon: "error",

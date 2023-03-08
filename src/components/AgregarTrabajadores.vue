@@ -15,7 +15,7 @@
                     <v-spacer></v-spacer>
                     <template>
                       <div class="text-center">
-                        <v-dialog max-width="1600px" v-model="dialog">
+                        <v-dialog max-width="1600px" v-model="dialog" persistent>
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn
                               dark
@@ -106,7 +106,7 @@
                                 </v-col>
 
                                 <v-col cols="12" sm="6" md="6">
-<v-text-field
+                                  <v-text-field
                                     v-model="telefono"
                                     label="Telefono"
                                     required
@@ -438,11 +438,7 @@ export default {
     ],
 
     nombre: "",
-    tipoDocumento: [
-      "C.C",
-      "Cedula de Extranjeria",
-      
-    ],
+    tipoDocumento: ["C.C", "Cedula de Extranjeria"],
     documento: "",
     sexo: ["M", "F"],
     tipoContrato: "",
@@ -481,10 +477,7 @@ export default {
           console.log(err);
         });
     },
-    prueba() {
-      console.log("ciudad: " + this.city);
-    },
-
+    
     traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")
@@ -590,7 +583,7 @@ export default {
           header
         )
         .then((response) => {
-         this.traerTrabajador();
+          this.traerTrabajador();
           this.dialog = false;
           console.log(response);
           this.$store.dispatch("setDatos", response.data.item);

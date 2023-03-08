@@ -53,6 +53,12 @@
                 label="Documento"
               ></v-text-field>
             </v-col>
+             <v-col cols="12" sm="6" md="6">
+              <v-text-field
+                v-model="detalleUsuario.nombre"
+                label="Nombres"
+              ></v-text-field>
+            </v-col>
 
             <v-col cols="12" sm="6" md="6">
               <v-text-field
