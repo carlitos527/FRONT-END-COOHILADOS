@@ -7,8 +7,7 @@ export const store = new Vuex.Store({
     state:{
         token: localStorage.token, 
         datos:{},
-        
-        usuarios:[],
+        usuario:JSON.parse(localStorage.getItem("usuario")),
         city:[],
         town:[],
         encargado:[]
@@ -22,7 +21,12 @@ export const store = new Vuex.Store({
             state.datos=value
         },
         setDatosUsuario(state,v){
-            state.usuarios=v
+            let user = localStorage.getItem("usuario");
+            if(user){
+                state.usuario = user
+            }else {
+                localStorage.setItem("usuario",JSON.stringify(v))
+            }
         },
         setCity(state,v){
             state.city=v
