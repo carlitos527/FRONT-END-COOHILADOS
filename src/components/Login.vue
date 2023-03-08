@@ -87,7 +87,7 @@ export default {
           password: this.password,
         })
         .then((response) => {
-          console.log(response);
+          console.log(response.data.token);
           this.$store.dispatch("setToken", response.data.token);
           this.$store.dispatch("setDatosUsuario", response.data.usuario);
           this.$router.push("/Home");

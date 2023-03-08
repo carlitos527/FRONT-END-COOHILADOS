@@ -587,6 +587,7 @@ export default {
     },
 
     agregar() {
+      console.log(this.$store.state.token);
       let header = { headers: { "x-token": this.$store.state.token } };
       console.log(header);
       axios
@@ -614,7 +615,6 @@ export default {
         )
         .then((response) => {
           console.log(response);
-          this.$store.dispatch("setToken", response.data.token);
           this.$store.dispatch("setDatos", response.data.item);
           this.$router.push("/AgregarDirecto");
 

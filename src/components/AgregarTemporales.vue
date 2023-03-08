@@ -609,7 +609,6 @@ export default {
         )
         .then((response) => {
           console.log(response);
-          this.$store.dispatch("setToken", response.data.token);
           this.$store.dispatch("setDatos", response.data.item);
           this.$router.push("/AgregarTemporales");
 
