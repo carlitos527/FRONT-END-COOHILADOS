@@ -30,12 +30,11 @@
                           </template>
                           <v-card>
                             <v-card-title class="text-h5"
-                              >Ingrese nuevo Trabajador Asociado</v-card-title
+                              >Ingrese nuevo Trabajador Directos</v-card-title
                             >
                             <v-card-text>
                               <v-row>
-                                <v-col >
-                                
+                                <v-col>
                                   <v-select
                                     v-model="tipoDocumento"
                                     :items="tipoDocumento"
@@ -88,7 +87,7 @@
 
                                   <v-text-field
                                     v-model="barrio"
-                                    label="dirección"
+                                    label="Dirección"
                                     required
                                   ></v-text-field>
 
@@ -191,8 +190,9 @@
                                     v-model="rol"
                                     label="Cargo"
                                   ></v-text-field>
-                                </v-col>  
+                                </v-col>
                               </v-row>
+                              
                             </v-card-text>
 
                             <v-card-actions>
@@ -200,12 +200,20 @@
                               <v-btn color="blue darken-1" text @click="close()"
                                 >Cancel</v-btn
                               >
-                              <v-btn
-                                color="blue darken-1"
-                                text
-                                @click="agregar()"
-                                >Guardar</v-btn
-                              >
+                              <v-card-action>
+                                <v-flex class="text-center">
+                                  <v-btn
+                                    rounded
+                                    class="ma-2"
+                                    outlined
+                                    color="green"
+                                    @click="login()"
+                                  >
+                                    guardar
+                                  </v-btn>
+                                </v-flex>
+                              </v-card-action>
+
                               <v-spacer></v-spacer>
                             </v-card-actions>
                           </v-card>
@@ -409,13 +417,13 @@ export default {
     dialog: false,
     dialogEdit: false,
     headers: [
-       { text: "Tipo Documento", value: "tipoDocumento" },
+      { text: "Tipo Documento", value: "tipoDocumento" },
       { text: "Documento", value: "documento" },
       { text: "Nombre", value: "nombre" },
       { text: "Sexo", value: "sexo" },
       { text: "Cumpleaños", value: "fechaNacimiento" },
-       { text: "Direccion", value: "barrio" },
-      { text: "Tipo de contrato", value: "tipoContrato"},
+      { text: "Direccion", value: "barrio" },
+      { text: "Tipo de contrato", value: "tipoContrato" },
       { text: "Inicio Cotrato", value: "fechaInicio" },
       { text: "Fin Cotrato", value: "fechaFin" },
       { text: "Tiempo", value: "tiempoLaborado" },
@@ -426,7 +434,6 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
 
-  
     nombre: "",
     tipoDocumento: [
       "C.C",
@@ -435,7 +442,7 @@ export default {
       "Numero de Identificacion tributaria",
     ],
     documento: "",
-    sexo: ["M", "F"], 
+    sexo: ["M", "F"],
     tipoContrato: "",
     tiempoLaborado: "",
     cargo: "",
@@ -453,7 +460,7 @@ export default {
     directos: [],
   }),
   methods: {
-     detalleDirecto(item) {
+    detalleDirecto(item) {
       this.$router.push("/Infodirecto");
       this.$store.dispatch("setDatos", item);
       console.log(this.$store.state.datos);
@@ -462,8 +469,8 @@ export default {
       this.dialog = false;
     },
 
-    prueba(){
-      console.log("ciudad: "+this.city);
+    prueba() {
+      console.log("ciudad: " + this.city);
     },
 
     traerDirecto() {
@@ -478,9 +485,6 @@ export default {
         });
     },
 
-    
-
-    
     traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")
@@ -504,7 +508,7 @@ export default {
           console.log(err);
         });
     },
-     traerCiudades() {
+    traerCiudades() {
       axios
         .get(
           `https://back-coohilados.vercel.app/api/ciudad/ciudad/get/${this.departamento}`
@@ -522,25 +526,33 @@ export default {
     cambiarEstado(item) {
       if (item.estado == 1) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/trabajadorDirecto/desactivar/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/trabajadorDirecto/desactivar/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
           .catch((err) => {
             console.log(err);
           });
-      }if (item.estado ==3) {
+      }
+      if (item.estado == 3) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/trabajadorDirecto/activar/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/trabajadorDirecto/activar/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
           .catch((err) => {
             console.log(err);
           });
-      } if(item.estado==2) {
+      }
+      if (item.estado == 2) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/trabajadorDirecto/vacaciones/${item._id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/trabajadorDirecto/vacaciones/${item._id}`
+          )
           .then((res) => {
             console.log(res);
           })
@@ -569,7 +581,9 @@ export default {
       console.log(id);
       if (id) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/trabajadorDirecto/activar/${id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/trabajadorDirecto/activar/${id}`
+          )
           .then((response) => {
             console.log(response);
           })
@@ -578,7 +592,6 @@ export default {
           });
       }
     },
-
 
     agregar() {
       let header = { headers: { "x-token": this.$store.state.token } };
@@ -592,10 +605,10 @@ export default {
             sexo: this.sexo,
             nombre: this.nombre,
             fechaNacimiento: this.fechaNacimiento,
-            fechaInicio: this.fechaInicio, 
+            fechaInicio: this.fechaInicio,
             fechaFin: this.fechaFin,
             areaTrabajo: this.areaTrabajo,
-            tipoContrato:this.tipoContrato,
+            tipoContrato: this.tipoContrato,
             salario: this.salario,
             barrio: this.barrio,
             departamento: this.departamento,
@@ -608,9 +621,22 @@ export default {
         )
         .then((response) => {
           console.log(response);
+          this.$store.dispatch("setToken", response.data.token);
+          this.$store.dispatch("setDatos", response.data.item);
+          this.$router.push("/AgregarDirecto");
+
+          this.$swal({
+            icon: "success",
+            title: "El trabajador se agrego correctamente",
+          });
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.log(error);
+          this.loading = false;
+          this.$swal({
+            icon: "error",
+            title: "Error al guardar el trabajador",
+          });
         });
     },
 
