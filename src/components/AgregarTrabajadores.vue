@@ -42,6 +42,7 @@
 
                                   <v-text-field
                                     v-model="documento"
+                                    :rules="documentoRules"
                                     label="Documento"
                                     required
                                   ></v-text-field>
@@ -55,6 +56,7 @@
 
                                   <v-text-field
                                     v-model="nombre"
+                                    :rules="nombreRules"
                                     label="Nombre y Apellidos"
                                     required
                                   ></v-text-field>
@@ -85,6 +87,7 @@
 
                                   <v-text-field
                                     v-model="barrio"
+                                    :rules="barrioRules"
                                     label="dirección"
                                     required
                                   ></v-text-field>
@@ -108,17 +111,20 @@
                                 <v-col cols="12" sm="6" md="6">
                                   <v-text-field
                                     v-model="telefono"
+                                    :rules="telefonoRules"
                                     label="Telefono"
                                     required
                                   ></v-text-field>
                                   <v-text-field
                                     v-model="email"
+                                    :rules="emailRules"
                                     label="E-mail"
                                     required
                                   ></v-text-field>
 
                                   <v-text-field
                                     v-model="tipoContrato"
+                                    :rules="tipoContratoRules"
                                     label="Tipo de contrato del trabajador"
                                     required
                                   ></v-text-field>
@@ -172,6 +178,7 @@
 
                                   <v-text-field
                                     v-model="salario"
+                                    :rules="salarioRules"
                                     label="Salario"
                                     required
                                   ></v-text-field>
@@ -186,6 +193,7 @@
 
                                   <v-text-field
                                     v-model="rol"
+                                    :rules="rolRules"
                                     label="Cargo"
                                   ></v-text-field>
                                 </v-col>
@@ -437,21 +445,67 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
 
+    valid4:true,
     nombre: "",
+    nombreRules: [
+      (n) => !!n || " Nombre y Apellidos son requerido ❌",
+      (n) => (n && n.length <= 50) || " Cedula solo puede tener 50 caracteres",
+    ],
+    
     tipoDocumento: ["C.C", "Cedula de Extranjeria"],
+    valid: true,
     documento: "",
+    documentoRules: [
+      (d) => !!d || " Documento es requerido ❌ ",
+      (d) => (d && d.length <= 15) || " Cedula solo puede tener 15 caracteres",
+    ],
     sexo: ["M", "F"],
+    valid2:true,
     tipoContrato: "",
+    tipoContratoRules: [
+      (c) => !!c || " Documento es requerido ❌",
+      (c) => (c && c.length <= 50) || " EL tipo de contrato solo puede tener 50 caracteres",
+    ],
+    
     tiempoLaborado: "",
-    cargo: "",
     areaTrabajo: "",
+
+    valid3:true,
     salario: "",
+    salarioRules: [
+      (s) => !!s || " El salario es requerido ❌",
+      (s) => (s && s.length <= 15) || " EL Salario solo puede tener 15 caracteres",
+    ],
+
+    valid5:true,
     barrio: "",
+    barrioRules: [
+      (b) => !!b || " Direcions requerido ❌",
+      (b) => (b && b.length <= 50) || " EL Barrio Solo puede tener 50 caracteres",
+    ],
     departamento: "",
     city: "",
+
+    valid6:true,
     telefono: "",
+    telefonoRules: [
+      (t) => !!t || " Telefono es requerido ❌",
+      (t) => (t && t.length <= 30) || " EL Telefono Solo puede tener 30 caracteres",
+    ],
+
+    valid7:true,
     email: "",
+    emailRules: [
+      (e) => !!e || " Email es requerido ❌",
+      (e) => (e && e.length <= 30) || " EL Email Solo puede tener 30 caracteres",
+    ],
+
+    valid8:true,
     rol: "",
+    rolRules: [
+      (r) => !!r || "El Cargoes requerido ❌",
+      (r) => (r && r.length <= 50) || " EL Rol Solo puede tener 50 caracteres",
+    ],
     area: [],
     cities: [],
     town: [],
