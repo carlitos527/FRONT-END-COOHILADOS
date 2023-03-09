@@ -1,7 +1,7 @@
 import home from "../components/Home.vue"
 import login from "../components/Login.vue"
 
-import tipoTrabajador from "../components/TiposTrabajadores.vue"
+
 import bitacora from "../components/Bitacora.vue"
 import setup from "../components/setup.vue"
 
@@ -24,7 +24,7 @@ export const routes =[
     {path:"/Home", component:home},
     {path:"/", component:login},
     
-    {path:"/TiposTrabajadores", component:tipoTrabajador},
+    
     {path:"/Bitacora", component:bitacora},
     {path:"/setup", component:setup},
 
