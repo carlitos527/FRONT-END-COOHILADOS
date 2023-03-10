@@ -4,12 +4,12 @@
       <v-app-bar-nav-icon
         class="white--text"
         @click="drawer = true"
-        v-if="this.$store.state.token != ''"
+        v-if="this.$store.state.token !=undefined"
       ></v-app-bar-nav-icon
       ><br /><br />
       <v-row>
         <v-col cols="1">
-          <v-list-item to="/Home" v-if="this.$store.state.token != ''">
+          <v-list-item to="/Home" v-if="this.$store.state.token !=undefined">
             <v-list-item-icon class="white--text mb-2 mt-10">
               <font-awesome-icon icon="fa-solid fa-house" />
             </v-list-item-icon>
@@ -33,7 +33,7 @@
       <v-btn
         class="white--text mx-6"
         icon
-        v-if="this.$store.state.token != ''"
+        v-if="this.$store.state.token !=undefined"
         @click="cerrarSesion()"
       >
         <v-icon>mdi-account-off</v-icon>
@@ -45,7 +45,7 @@
           fab
           dark
           to="/"
-          v-if="this.$store.state.token === ''"
+          v-if="this.$store.state.token ===undefined"
         >
           <v-icon>mdi-account-circle</v-icon>
         </v-btn>
@@ -61,7 +61,7 @@
       v-model="drawer"
       absolute
       temporary
-      v-if="$store.state.token != ''"
+      v-if="$store.state.token !=undefined"
     >
       <v-img
         src="https://coohilados.com.co/carga/upload/images/QUIENESSOMOS1.jpg"
@@ -109,10 +109,12 @@ export default {
   }),
   methods: {
     cerrarSesion() {
-      this.$store.dispatch("setToken", "");
-      this.$store.dispatch("setDatosUsuario", null);
+      this.$store.state.token=undefined
+
       this.$router.push("/");
       console.log("cerrarSesion");
+      localStorage.removeItem("token");
+      localStorage.removeItem("usuario")
     },
     traerUsuario() {
       this.persona = this.$store.state.usuario;

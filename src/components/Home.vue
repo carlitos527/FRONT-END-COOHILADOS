@@ -1,8 +1,8 @@
 <template>
   <v-app id="inspire">
     <v-container fluid >
-      <v-row class="" align="center">
-        <v-col cols="4">
+      <v-row class="justify-center" align="center" style="height:90vh">
+        <v-col cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card class="pt-0 light-green-accent-4" color="#41B44C"  max-width="340" outlined>
             <div>
               <h1 class="text-left mb-10">
@@ -30,7 +30,7 @@
           </v-card>
         </v-col>
 
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card class="mx-auto" color="#41B44C" max-width="344" outlined>
             <div>
               <h1 class="text-left mb-10">
@@ -58,7 +58,7 @@
           </v-card>
         </v-col>
 
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card class="mx-auto" color="#41B44C" max-width="344" outlined>
             <div>
               <h1 class="text-left mb-10">
@@ -88,30 +88,7 @@
           </v-card>
         </v-col>
 
-        <v-col cols="4">
-          <v-card class="lime lighten-3" max-width="344" outlined>
-            <div>
-              <h1>
-                usuario
-                <v-list-item-icon>
-                  <font-awesome-icon icon="fa-solid fa-handshake" />
-                </v-list-item-icon>
-              </h1>
-            </div>
-
-            <v-btn
-              class="orange accent-4"
-              outlined
-              rounded
-              text
-              to="/Agregarusuario"
-            >
-              <v-icon>mdi-login</v-icon></v-btn
-            >
-          </v-card>
-        </v-col>
-
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card class="mx-auto" color="#41B44C" max-width="344" outlined>
             <div>
               <h1 class="text-left mb-10">
@@ -138,7 +115,7 @@
           </v-card>
         </v-col>
 
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card class="mx-auto " color="#41B44C" max-width="344" outlined>
             <div>
               <h3 class="text-left mb-10">Cantidad de Trabajadores</h3>
@@ -163,7 +140,7 @@
           </v-card>
         </v-col>
 
-        <v-col cols="4">
+        <v-col cols="12" sm="6" md="4" lg="3" xl="2">
           <v-card class="mx-auto " color="#41B44C" max-width="344" outlined>
             <div>
               <h3 class="text-left mb-10">Todos Trabajadores</h3>

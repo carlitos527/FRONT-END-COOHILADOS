@@ -10,7 +10,7 @@
               <v-col class="text-center">
                 <v-template>
                   <v-toolbar class="amber accent-2">
-                    <v-toolbar-title>Trabajadores Directo</v-toolbar-title>
+                    <v-toolbar-title>Trabajadores Coohilados</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
                     <v-spacer></v-spacer>
                     <template>

@@ -12,10 +12,22 @@
                   <v-toolbar class="amber accent-2">
                     <v-toolbar-title>Trabajadores Asociados</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
+                    <v-text-field
+                    v-model="busqueda"
+                    append-icon="mdi-magnify"
+                    label="buscar"
+                    single-line
+                    hide-details
+                  >
+                  </v-text-field>
                     <v-spacer></v-spacer>
                     <template>
                       <div class="text-center">
-                        <v-dialog max-width="1600px" v-model="dialog" persistent>
+                        <v-dialog
+                          max-width="1600px"
+                          v-model="dialog"
+                          persistent
+                        >
                           <template v-slot:activator="{ on, attrs }">
                             <v-btn
                               dark
@@ -222,9 +234,11 @@
 
                 <!--   informacion de todos los tranbajadores -->
                 <template>
+                  
                   <v-data-table
                     :headers="headers"
                     :items="trabajadores"
+                    :search="busqueda"
                     sort-by="nombre"
                     class="elevation-1 amber lighten-3"
                   >
@@ -445,13 +459,13 @@ export default {
       { text: "Actions", value: "actions", sortable: false },
     ],
 
-    valid4:true,
+    valid4: true,
     nombre: "",
     nombreRules: [
       (n) => !!n || " Nombre y Apellidos son requerido ❌",
       (n) => (n && n.length <= 50) || " Cedula solo puede tener 50 caracteres",
     ],
-    
+
     tipoDocumento: ["C.C", "Cedula de Extranjeria"],
     valid: true,
     documento: "",
@@ -460,47 +474,53 @@ export default {
       (d) => (d && d.length <= 15) || " Cedula solo puede tener 15 caracteres",
     ],
     sexo: ["M", "F"],
-    valid2:true,
+    valid2: true,
     tipoContrato: "",
     tipoContratoRules: [
       (c) => !!c || " Documento es requerido ❌",
-      (c) => (c && c.length <= 50) || " EL tipo de contrato solo puede tener 50 caracteres",
+      (c) =>
+        (c && c.length <= 50) ||
+        " EL tipo de contrato solo puede tener 50 caracteres",
     ],
-    
+
     tiempoLaborado: "",
     areaTrabajo: "",
 
-    valid3:true,
+    valid3: true,
     salario: "",
     salarioRules: [
       (s) => !!s || " El salario es requerido ❌",
-      (s) => (s && s.length <= 15) || " EL Salario solo puede tener 15 caracteres",
+      (s) =>
+        (s && s.length <= 15) || " EL Salario solo puede tener 15 caracteres",
     ],
 
-    valid5:true,
+    valid5: true,
     barrio: "",
     barrioRules: [
       (b) => !!b || " Direcions requerido ❌",
-      (b) => (b && b.length <= 50) || " EL Barrio Solo puede tener 50 caracteres",
+      (b) =>
+        (b && b.length <= 50) || " EL Barrio Solo puede tener 50 caracteres",
     ],
     departamento: "",
     city: "",
 
-    valid6:true,
+    valid6: true,
     telefono: "",
     telefonoRules: [
       (t) => !!t || " Telefono es requerido ❌",
-      (t) => (t && t.length <= 30) || " EL Telefono Solo puede tener 30 caracteres",
+      (t) =>
+        (t && t.length <= 30) || " EL Telefono Solo puede tener 30 caracteres",
     ],
 
-    valid7:true,
+    valid7: true,
     email: "",
     emailRules: [
       (e) => !!e || " Email es requerido ❌",
-      (e) => (e && e.length <= 30) || " EL Email Solo puede tener 30 caracteres",
+      (e) =>
+        (e && e.length <= 30) || " EL Email Solo puede tener 30 caracteres",
     ],
 
-    valid8:true,
+    valid8: true,
     rol: "",
     rolRules: [
       (r) => !!r || "El Cargoes requerido ❌",
@@ -510,7 +530,18 @@ export default {
     cities: [],
     town: [],
     trabajadores: [],
+    busqueda: "",
   }),
+  computed: {
+    buscar() {
+      return this.trabajadores.filter((user) => {
+        const identificacion = user.tipoDocumento.toLowerCase();
+        const nombre = user.nombre.toLowerCase();
+        const busqueda = this.busqueda.toLowerCase();
+        return identificacion.includes(busqueda) || nombre.includes(busqueda);
+      });
+    },
+  },
   methods: {
     detalleTrabajador(item) {
       this.$router.push("/Infotrabajador");
@@ -531,7 +562,7 @@ export default {
           console.log(err);
         });
     },
-    
+
     traerAreaTrabajo() {
       axios
         .get("https://back-coohilados.vercel.app/api/areaTrabajo")

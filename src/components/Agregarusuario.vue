@@ -3,223 +3,82 @@
     <v-container fluid>
       <v-row>
         <v-col class="text-center">
-          <v-template>
-            <v-toolbar>
-              <v-toolbar-title>Usuarios</v-toolbar-title>
-              <v-divider class="mx-4" inset vertical></v-divider>
+          <v-card>
+            <v-card-title class="text-h5">Ingrese nuevo usuario</v-card-title>
+            <v-card-text>
+              <v-row>
+                <v-col cols="12" sm="6" md="6">
+                  <v-select
+                    v-model="tipoDocumento"
+                    :items="tipoDocumento"
+                    label="Tipo de Documento"
+                    required
+                  >
+                  </v-select>
+
+                  <v-text-field
+                    v-model="documento"
+                    label="Documento"
+                    required
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-model="nombre"
+                    label="Nombre y Apellidos"
+                    required
+                  ></v-text-field>
+
+                  <v-text-field
+                    v-model="direccion"
+                    label="Direccion"
+                    required
+                  ></v-text-field>
+                  <v-select
+                    :items="cities"
+                    v-model="departamento"
+                    label="Departamento De Nacimiento"
+                    @change="traerCiudades()"
+                  ></v-select>
+                </v-col>
+
+                <v-col cols="12" sm="6" md="6">
+                  <v-select
+                    :items="town"
+                    v-model="city"
+                    item-text="Ciudad"
+                    item-value="_id"
+                    label="Ciudad de Nacimiento"
+                    @change="prueba()"
+                  ></v-select>
+
+                  <v-text-field
+                    v-model="telefono"
+                    label="Telefono"
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="email"
+                    label="E-mail"
+                    required
+                  ></v-text-field>
+                  <v-text-field
+                    v-model="password"
+                    label="Escriba una Contraseña"
+                    required
+                  ></v-text-field>
+                  <v-text-field v-model="rol" label="Rol"></v-text-field>
+                </v-col>
+              </v-row>
+            </v-card-text>
+            <v-card-actions>
               <v-spacer></v-spacer>
-              <template>
-                <div class="text-center">
-                  <v-dialog max-width="800px" v-model="dialog">
-                    <template v-slot:activator="{ on, attrs }">
-                      <v-btn
-                        dark
-                        class="mb-2 green lighten-3"
-                        v-bind="attrs"
-                        v-on="on"
-                      >
-                        Nuevo Usuario
-                      </v-btn>
-                    </template>
-                    <v-card>
-                      <v-card-title class="text-h5"
-                        >Ingrese nuevo usuario</v-card-title
-                      >
-                      <v-card-text>
-                        <v-row>
-                          <v-col cols="12" sm="6" md="6">
-                            <v-select
-                              v-model="tipoPersona"
-                              :items="tipoPersona"
-                              label="Tipo Persona"
-                              required
-                            >
-                            </v-select>
-                            <v-text-field
-                              v-model="nombre"
-                              label="Nombre"
-                              required
-                            ></v-text-field>
-                            <v-select
-                              v-model="tipoDocumento"
-                              :items="tipoDocumento"
-                              label="Tipo de Documento"
-                              required
-                            >
-                            </v-select>
-                            <v-text-field
-                              v-model="documento"
-                              label="Documento"
-                              required
-                            ></v-text-field>
-                            <v-text-field
-                              v-model="direccion"
-                              label="Direccion"
-                              required
-                            ></v-text-field>
-                            <v-select
-                              :items="cities"
-                              v-model="departamento"
-                              label="Departamento"
-                              @change="traerCiudades()"
-                            ></v-select>
-                          </v-col>
-
-                          <v-col cols="12" sm="6" md="6">
-                            <v-select
-                              :items="town"
-                              v-model="city"
-                              item-text="Ciudad"
-                              label="Ciudad"
-                            ></v-select>
-                            <v-text-field
-                              v-model="contacto"
-                              label="Contacto"
-                            ></v-text-field>
-                            <v-text-field
-                              v-model="telefono"
-                              label="Telefono"
-                              required
-                            ></v-text-field>
-                            <v-text-field
-                              v-model="email"
-                              label="E-mail"
-                              required
-                            ></v-text-field>
-                            <v-text-field
-                              v-model="rol"
-                              label="Rol"
-                            ></v-text-field>
-                           
-                          </v-col>
-                        </v-row>
-                      </v-card-text>
-                      <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn color="blue darken-1" text @click="close()"
-                          >Cancel</v-btn
-                        >
-                        <v-btn color="blue darken-1" text @click="agregar()"
-                          >Guardar</v-btn
-                        >
-                        <v-spacer></v-spacer>
-                      </v-card-actions>
-                    </v-card>
-                  </v-dialog>
-                </div>
-              </template>
-            </v-toolbar>
-          </v-template>
-          <template>
-            <v-data-table
-              :headers="headers"
-              :items="usuarios"
-              sort-by="nombre"
-              class="elevation-1"
-            >
-              <template>
-                <v-toolbar flat>
-                  <v-card>
-                    <v-card-title> </v-card-title>
-                    <v-card-text>
-                      <v-container v-for="item in usuarios" :key="item._id">
-                        <v-row>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="nombre" label="Nombre">{{
-                              item.nombre
-                            }}</v-text-field>
-                          </v-col>
-                          <v-col>
-                            <v-text-field
-                              v-model="tipoDocumento"
-                              label="Tipo de Documento"
-                              >{{ item.tipoDocumento }}
-                            </v-text-field>
-                          </v-col>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              v-model="documento"
-                              label="Documento"
-                              >{{ item.documento }}</v-text-field
-                            >
-                          </v-col>
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field
-                              v-model="nombre"
-                              label="Nombre"
-                              >{{ item.nombre }}</v-text-field
-                            >
-                          </v-col>
-
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="telefono" label="Telefono">{{
-                              item.telefono
-                            }}</v-text-field>
-                          </v-col>
-
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="email" label="E-mail">{{
-                              item.email
-                            }}</v-text-field>
-                          </v-col>
-
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="rol" label="Rol">{{
-                              item.rol
-                            }}</v-text-field>
-                          </v-col>
-
-                          <v-col cols="12" sm="6" md="4">
-                            <v-text-field v-model="estado" label="Estado">{{
-                              item.estado
-                            }}</v-text-field>
-                          </v-col>
-                        </v-row>
-                      </v-container>
-                    </v-card-text>
-                  </v-card>
-                </v-toolbar>
-              </template>
-              <template v-slot:[`item.actions`]="{ item }">
-                <v-btn
-                  color="green"
-                  icon
-                  dark
-                  class="mb-2"
-                  @click="detalleUsuario(item)"
-                >
-                  <font-awesome-icon icon="fa-solid fa-eye" />
-                </v-btn>
-
-                <v-btn
-                  color="primary"
-                  icon
-                  dark
-                  class="mb-2"
-                  @click="detalleUsuario(item)"
-                >
-                  <font-awesome-icon icon="fa-solid fa-pencil" />
-                </v-btn>
-
-                <v-btn
-                  color="red"
-                  icon
-                  @click="desactivar(item._id)"
-                  v-show="item.estado === 'Activo'"
-                >
-                  <font-awesome-icon icon="fa-solid fa-ban" />
-                </v-btn>
-                <v-btn
-                  color="green"
-                  icon
-                  @click="activar(item._id)"
-                  v-show="item.estado === 'Inactivo'"
-                >
-                  <font-awesome-icon icon="fa-solid fa-check" />
-                </v-btn>
-              </template>
-            </v-data-table>
-          </template>
+              <v-btn color="blue darken-1" text @click="close()">Cancel</v-btn>
+              <v-btn color="blue darken-1" text @click="agregar()"
+                >Guardar</v-btn
+              >
+              <v-spacer></v-spacer>
+            </v-card-actions>
+          </v-card>
         </v-col>
       </v-row>
     </v-container>
@@ -230,25 +89,12 @@ import axios from "axios";
 export default {
   name: "PagesAgregarusuario",
   data: () => ({
+    loading: false,
     dialog: false,
     dialogEdit: false,
-    headers: [
-      { text: "Nombre", value: "nombre" },
-      { text: "TipoDocumento", value: "tipoDocumento" },
-      { text: "Documento", value: "documento" },
-      { text: "Telefono", value: "telefono" },
-      { text: "Email", value: "email" },
-      { text: "Rol", value: "rol" },
-      { text: "Estado", value: "estado" },
-      { text: "Actions", value: "actions", sortable: false },
-    ],
 
-    tipoPersona: ["Persona Natural", "Persona Juridica"],
     nombre: "",
-    tipoDocumento: [
-      "Cedula de Ciudadania",
-      "Cedula de Extranjeria",
-    ],
+    tipoDocumento: ["Cedula de Ciudadania", "Cedula de Extranjeria"],
     documento: "",
     direccion: "",
     departamento: "",
@@ -289,22 +135,20 @@ export default {
         .then((response) => {
           // response.data.ciudad.reduce((obj, item) => (obj[item.Departamento] = true, obj), {});
           this.cities = response.data.departamentos;
-          console.log(this.cities);
         })
         .catch((err) => {
           console.log(err);
         });
     },
-    traerCiudades(depart) {
-      depart = this.departamento;
-      console.log(depart);
+    traerCiudades() {
       axios
-        .get(`https://back-coohilados.vercel.app/api/ciudad/ciudad/get/${depart}`)
+        .get(
+          `https://back-coohilados.vercel.app/api/ciudad/ciudad/get/${this.departamento}`
+        )
         .then((response) => {
           //this.town = response.data.city.reduce((obj, item) => (obj[item.Ciudad] = true, obj), {});
           //this.ciudad = response.data.city.filter(c => { return c.Ciudad.length > 3})
           this.town = response.data.city;
-
           console.log(this.town);
         })
         .catch((err) => {
@@ -315,7 +159,9 @@ export default {
       console.log(id);
       if (id) {
         axios
-          .put(`https://back-coohilados.vercel.app/api/usuario//desactivar/desactivar/${id}`)
+          .put(
+            `https://back-coohilados.vercel.app/api/usuario//desactivar/desactivar/${id}`
+          )
           .then((response) => {
             console.log(response);
           })
@@ -338,6 +184,7 @@ export default {
       }
     },
     agregar() {
+      this.loading = true;
       let header = { headers: { "x-token": this.$store.state.token } };
       console.log(header);
       axios
@@ -360,10 +207,25 @@ export default {
           header
         )
         .then((response) => {
+          this.dialog = false;
           console.log(response);
+          this.$store.dispatch("setDatos", response.data.item);
+          this.$router.push("/Home");
+          this.loading = false;
+
+          this.$swal({
+            icon: "success",
+            title: "El trabajador se agrego correctamente",
+          });
         })
-        .catch((err) => {
-          console.log(err);
+        .catch((error) => {
+          console.log(error);
+          this.dialog = false;
+          this.loading = false;
+          this.$swal({
+            icon: "error",
+            title: "Error al guardar el trabajador",
+          });
         });
     },
   },

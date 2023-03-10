@@ -31,7 +31,7 @@
 
               <h4 class="text-center">
                 <router-link to="/Agregarusuario" color="black">
-                  ¿Has olvidado tu contraseña?
+                  Crea un usuario!
                 </router-link>
               </h4>
               <v-card-action>

@@ -17,10 +17,7 @@
             <!-- inicio de la cart del usuario a editar -->
             <v-card-title justify-right>
               <v-col cols="12" sm="6" md="6" justify="right">
-                <v-text-field
-                  v-model="detalleTrabajador._id"
-                  label="trabajador2 ID"
-                ></v-text-field>
+                
                 <v-card-title>{{ detalleTrabajador.nombre }}</v-card-title>
               </v-col>
             </v-card-title>
@@ -28,13 +25,13 @@
             <v-card-text>
               <v-row align="center" class="mx-0">
                 <v-col cols="12" sm="6" md="4">
-                  <p label="Estado">Estado: {{ detalleTrabajador.estado }}</p>
+                  <p label="Estado" v-if="detalleTrabajador.estado==1">Estado: Activo</p>
+                  <p label="Estado" v-if="detalleTrabajador.estado==2">Estado: Inactivo</p>
+                  <p label="Estado" v-if="detalleTrabajador.estado==3">Estado: De vacaciones</p>
                 </v-col>
               </v-row>
             </v-card-text>
-
             <v-divider class="mx-4"></v-divider>
-
             <v-card-text>
               <template>
                 <v-container>
@@ -98,11 +95,6 @@
                         v-model="detalleTrabajador.fechaFin"
                         label="Fecha de Finalización del contrato"
                       ></v-text-field>
-                    </v-col><v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTrabajador.cargo"
-                        label="Cargo"
-                      ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
@@ -119,7 +111,7 @@
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="detalleTrabajador.direccion"
+                        v-model="detalleTrabajador.barrio"
                         label="Direccion"
                       ></v-text-field>
                     </v-col>
@@ -170,7 +162,6 @@
                 </v-container>
               </template>
             </v-card-text>
-
             <v-card-actions>
               <v-btn color="deep-purple lighten-2" text to="/AgregarTrabajadores">
                 Regresar
@@ -195,8 +186,11 @@ export default {
   name: "PageInfotrabajador",
 
   data: () => ({
-    detalleTrabajador: [],
+    detalleTrabajador: {},
   }),
+  computed: {
+    
+  },
   methods: {
     traerTrabajador() {
       this.detalleTrabajador = this.$store.state.datos;

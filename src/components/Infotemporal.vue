@@ -17,10 +17,7 @@
             <!-- inicio de la cart del usuario a editar -->
             <v-card-title justify-right>
               <v-col cols="12" sm="6" md="6" justify="right">
-                <v-text-field
-                  v-model="detalleTemporal._id"
-                  label="trabajador2 ID"
-                ></v-text-field>
+                
                 <v-card-title>{{ detalleTemporal.nombre }}</v-card-title>
               </v-col>
             </v-card-title>
@@ -97,11 +94,6 @@
                       <v-text-field
                         v-model="detalleTemporal.fechaFin"
                         label="Fecha de Finalización del contrato"
-                      ></v-text-field>
-                    </v-col><v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTemporal.cargo"
-                        label="Cargo"
                       ></v-text-field>
                     </v-col>
                     <v-col cols="12" sm="6" md="6">
