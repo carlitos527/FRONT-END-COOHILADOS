@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-container fluid>
+      
       <v-row>
         <v-col class="text-center">
           <v-card>

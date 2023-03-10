@@ -111,7 +111,7 @@
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="detalleDirecto.direccion"
+                        v-model="detalleDirecto.barrio"
                         label="Direccion"
                       ></v-text-field>
                     </v-col>
@@ -198,7 +198,6 @@ export default {
       if (id) {
         axios
           .put(`https://back-coohilados.vercel.app/api/trabajadorDirecto/${id}`, {
-            tipoPersona: this.detalleDirecto.tipoPersona,
             tipoDocumento: this.detalleDirecto.tipoDocumento,
             documento: this.detalleDirecto.documento,
             sexo: this.detalleDirecto.sexo,
@@ -207,10 +206,9 @@ export default {
             tipoContrato: this.detalleDirecto.tipoContrato,
             fechaInicio: this.detalleDirecto.fechaInicio,
             fechaFin: this.detalleDirecto.fechaFin,
-            cargo: this.detalleDirecto.cargo,
             areaTrabajo: this.detalleDirecto.areaTrabajo,
             salario: this.detalleDirecto.salario,         
-            direccion: this.detalleDirecto.direccion,
+            barrio: this.detalleDirecto.barrio,
             departamento: this.detalleDirecto.departamento,
             ciudad: this.detalleDirecto.city,
             telefono: this.detalleDirecto.telefono,

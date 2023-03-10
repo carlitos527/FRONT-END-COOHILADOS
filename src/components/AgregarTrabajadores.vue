@@ -262,7 +262,7 @@
                                 <v-col>
                                   <v-text-field
                                     v-model="tipoDocumento"
-                                    label="Tipo de Documento"
+                                    label="Documento"
                                     >{{ item.tipoDocumento }}
                                   </v-text-field>
                                 </v-col>
@@ -456,7 +456,7 @@ export default {
       { text: "Salario", value: "salario" },
       { text: "Cargo", value: "rol" },
       { text: "Estado", value: "estado" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Acciones", value: "actions", sortable: false },
     ],
 
     valid4: true,

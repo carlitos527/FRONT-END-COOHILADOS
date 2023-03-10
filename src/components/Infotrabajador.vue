@@ -155,7 +155,7 @@
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTrabajador.rol"
-                        label="Rol"
+                        label="Cargo"
                       ></v-text-field>
                     </v-col>
                   </v-row>

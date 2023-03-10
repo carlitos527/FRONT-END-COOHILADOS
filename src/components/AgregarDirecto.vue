@@ -1,5 +1,4 @@
 
-
 <template>
   <v-app>
     <v-container fluid>
@@ -15,6 +14,14 @@
                   <v-toolbar class="amber accent-2">
                     <v-toolbar-title>Trabajadores Directo </v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
+                    <v-text-field
+                    v-model="busqueda"
+                    append-icon="mdi-magnify"
+                    label="buscar"
+                    single-line
+                    hide-details
+                  >
+                  </v-text-field>
                     <v-spacer></v-spacer>
                     
                     <template>
@@ -241,6 +248,7 @@
                   <v-data-table
                     :headers="headers"
                     :items="directos"
+                    :search="busqueda"
                     sort-by="nombre"
                     class="elevation-1 amber lighten-3"
                   >
@@ -277,7 +285,7 @@
                                 </v-col>
 
                                 <v-col cols="12" sm="6" md="4">
-                                  <v-text-field v-model="rol" label="Rol">{{
+                                  <v-text-field v-model="rol" label="Cargo">{{
                                     item.rol
                                   }}</v-text-field>
                                 </v-col>
@@ -448,7 +456,7 @@ export default {
       { text: "Documento", value: "documento" },
       { text: "Nombre", value: "nombre" },
       { text: "Sexo", value: "sexo" },
-      { text: "Cumpleaños", value: "fechaNacimiento" },
+      { text: "Fecha de Nacimiento", value: "fechaNacimiento" },
       { text: "Direccion", value: "barrio" },
       { text: "Tipo de contrato", value: "tipoContrato" },
       { text: "Inicio Cotrato", value: "fechaInicio" },
@@ -458,7 +466,7 @@ export default {
       { text: "Salario", value: "salario" },
       { text: "Cargo", value: "rol" },
       { text: "Estado", value: "estado" },
-      { text: "Actions", value: "actions", sortable: false },
+      { text: "Acciones", value: "actions", sortable: false },
     ],
     valid4:true,
     nombre: "",
@@ -525,7 +533,20 @@ export default {
     cities: [],
     town: [],
     directos: [],
+    busqueda: "",
   }),
+
+  computed: {
+    buscar() {
+      return this.directos.filter((user) => {
+        const identificacion = user.tipoDocumento.toLowerCase();
+        const nombre = user.nombre.toLowerCase();
+        const busqueda = this.busqueda.toLowerCase();
+        return identificacion.includes(busqueda) || nombre.includes(busqueda);
+      });
+    },
+  },
+   
   methods: {
     detalleDirecto(item) {
       this.$router.push("/Infodirecto");

@@ -12,6 +12,14 @@
                   <v-toolbar class="amber accent-2">
                     <v-toolbar-title>Trabajadores Temporales</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
+                    <v-text-field
+                    v-model="busqueda"
+                    append-icon="mdi-magnify"
+                    label="buscar"
+                    single-line
+                    hide-details
+                  >
+                  </v-text-field>
                     <v-spacer></v-spacer>
                     <template>
                       <div class="text-center">
@@ -221,10 +229,12 @@
                 </v-template>
 
                 <!--   informacion de todos los tranbajadores -->
+
                 <template>
                   <v-data-table
                     :headers="headers"
                     :items="temporales"
+                    :search="busqueda"
                     sort-by="nombre"
                     class="elevation-1 amber lighten-3"
                   >
@@ -508,7 +518,21 @@ export default {
     cities: [],
     town: [],
     temporales: [],
+    busqueda: "",
   }),
+
+   computed: {
+    buscar() {
+      return this.temporales.filter((user) => {
+        const identificacion = user.tipoDocumento.toLowerCase();
+        const nombre = user.nombre.toLowerCase();
+        const busqueda = this.busqueda.toLowerCase();
+        return identificacion.includes(busqueda) || nombre.includes(busqueda);
+      });
+    },
+  },
+
+  
   methods: {
     detalleTemporal(item) {
       this.$router.push("/Infotemporal");
