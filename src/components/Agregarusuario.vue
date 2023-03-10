@@ -19,6 +19,7 @@
 
                   <v-text-field
                     v-model="documento"
+                    :rules="documentoRules"
                     label="Documento"
                     required
                   ></v-text-field>
@@ -26,12 +27,14 @@
                   <v-text-field
                     v-model="nombre"
                     label="Nombre y Apellidos"
+                    :rules="nombreRules"
                     required
                   ></v-text-field>
 
                   <v-text-field
                     v-model="direccion"
                     label="Direccion"
+                    :rules="direccionRules"
                     required
                   ></v-text-field>
                   <v-select
@@ -55,19 +58,26 @@
                   <v-text-field
                     v-model="telefono"
                     label="Telefono"
+                    :rules="telefonoRules"
                     required
                   ></v-text-field>
                   <v-text-field
                     v-model="email"
                     label="E-mail"
+                    :rules="emailRules"
                     required
                   ></v-text-field>
                   <v-text-field
                     v-model="password"
                     label="Escriba una Contraseña"
+                    :rules="passwordRules"
                     required
                   ></v-text-field>
-                  <v-text-field v-model="rol" label="Rol"></v-text-field>
+                  <v-text-field 
+                  v-model="rol"
+                   label="Rol"
+                   :rules="rolRules"
+                   ></v-text-field>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -94,17 +104,53 @@ export default {
     dialog: false,
     dialogEdit: false,
 
+    valid:true,
     nombre: "",
+    nombreRules: [
+      (n) => !!n || " Nombre y Apellidos son requerido ❌",
+      (n) => (n && n.length <= 50) || " EL Nombre solo puede tener 50 caracteres",
+    ],
+    
     tipoDocumento: ["Cedula de Ciudadania", "Cedula de Extranjeria"],
+
+    vali2:true,
     documento: "",
+     documentoRules: [
+      (d) => !!d || " EL numero del Documento es requerido ❌",
+      (d) => (d && d.length <= 17) || " Cedula No puede tener menos de 6 caracteres",
+    ],
+    valid3:true,
     direccion: "",
+    direccionRules: [
+      (di) => !!di || " La Direccion  es requerido ❌",
+      (di) => (di && di.length <= 20) || " Direcion solo puede tener 20 caracteres",
+    ],
     departamento: "",
     city: "",
-    contacto: "",
+    valid4:true,
     telefono: "",
+    telefonoRules: [
+      (t) => !!t || " EL numero de telefono es requerido ❌",
+      (t) => (t && t.length <= 30) || " Telefono solo puede tener 30 caracteres",
+    ],
+    vali5:true,
     email: "",
+    emailRules: [
+      (e) => !!e || " EL E-mail es requerido ❌",
+      (e) => (e && e.length <= 20) || " el email  solo puede tener menos de  20 caracteres",
+    ],
+    valid6:true,
     password: "",
+    passwordlRules: [
+      (p) => !!p || " La contraseña es requerido ❌",
+      (p) => (p && p.length <= 8) || " La contraseña  no puede tener menos de 8 caracteres",
+    ],
+    valid7:true,
     rol: "",
+    rolRules: [
+      (r) => !!r || " EL Rol es requerido ❌",
+      (r) => (r && r.length <= 20) || " el Rol solo puede tener menos de  20 caracteres",
+    ],
     cities: [],
     town: [],
     usuarios: [],
@@ -216,7 +262,7 @@ export default {
 
           this.$swal({
             icon: "success",
-            title: "El trabajador se agrego correctamente",
+            title: "Se creo el Usuario  correctamente",
           });
         })
         .catch((error) => {
@@ -225,7 +271,7 @@ export default {
           this.loading = false;
           this.$swal({
             icon: "error",
-            title: "Error al guardar el trabajador",
+            title: "Error al guardar el Usuario",
           });
         });
     },

@@ -472,7 +472,7 @@ export default {
     nombre: "",
     nombreRules: [
       (n) => !!n || " Nombre y Apellidos son requerido ❌",
-      (n) => (n && n.length <= 50) || " Cedula solo puede tener 50 caracteres",
+      (n) => (n && n.length <= 50) || " EL nombre solo puede tener 50 caracteres",
     ],
     
     tipoDocumento: ["C.C", "Cedula de Extranjeria"],
