@@ -36,12 +36,6 @@
               <template>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTrabajador.tipoPersona"
-                        label="Tipo Persona"
-                      ></v-text-field>
-                    </v-col>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
@@ -145,13 +139,6 @@
                       ></v-text-field>
                     </v-col>
 
-                     <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTrabajador.estado"
-                        label="estado"
-                      ></v-text-field>
-                    </v-col>
-
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTrabajador.rol"
@@ -200,7 +187,7 @@ export default {
       if (id) {
         axios
           .put(`https://back-coohilados.vercel.app/api/servicio/${id}`, {
-            tipoPersona: this.detalleTrabajador.tipoPersona,
+            
             tipoDocumento: this.detalleTrabajador.tipoDocumento,
             documento: this.detalleTrabajador.documento,
             sexo: this.detalleTrabajador.sexo,
@@ -209,15 +196,13 @@ export default {
             tipoContrato: this.detalleTrabajador.tipoContrato,
             fechaInicio: this.detalleTrabajador.fechaInicio,
             fechaFin: this.detalleTrabajador.fechaFin,
-            cargo: this.detalleTrabajador.cargo,
             areaTrabajo: this.detalleTrabajador.areaTrabajo,
             salario: this.detalleTrabajador.salario,
-            direccion: this.detalleTrabajador.direccion,
+            barrio: this.detalleTrabajador.barrio,
             departamento: this.detalleTrabajador.departamento,
             ciudad: this.detalleTrabajador.city,
             telefono: this.detalleTrabajador.telefono,
             email: this.detalleTrabajador.email,
-            estado: this.detalleTrabajador.estado,
             rol: this.detalleTrabajador.rol,
           })
           .then((response) => {

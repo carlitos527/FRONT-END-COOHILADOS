@@ -25,7 +25,9 @@
             <v-card-text>
               <v-row align="center" class="mx-0">
                 <v-col cols="12" sm="6" md="4">
-                  <p label="Estado">Estado: {{ detalleTemporal.estado }}</p>
+                  <p label="Estado" v-if="detalleTemporal.estado==1">Estado: Activo</p>
+                  <p label="Estado" v-if="detalleTemporal.estado==2">Estado: Inactivo</p>
+                  <p label="Estado" v-if="detalleTemporal.estado==3">Estado: De vacaciones</p>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -36,12 +38,6 @@
               <template>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTemporal.tipoPersona"
-                        label="Tipo Persona"
-                      ></v-text-field>
-                    </v-col>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
@@ -112,7 +108,7 @@
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
-                        v-model="detalleTemporal.direccion"
+                        v-model="detalleTemporal.barrio"
                         label="Direccion"
                       ></v-text-field>
                     </v-col>
@@ -139,24 +135,11 @@
                       ></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTemporal.email"
-                        label="E-mail"
-                      ></v-text-field>
-                    </v-col>
-
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleTemporal.estado"
-                        label="estado"
-                      ></v-text-field>
-                    </v-col>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
                         v-model="detalleTemporal.rol"
-                        label="Rol"
+                        label="Cargo"
                       ></v-text-field>
                     </v-col>
                   </v-row>
@@ -199,7 +182,6 @@ export default {
       if (id) {
         axios
           .put(`https://back-coohilados.vercel.app/api/ayudaTemporal/${id}`, {
-            tipoPersona: this.detalleTemporal.tipoPersona,
             tipoDocumento: this.detalleTemporal.tipoDocumento,
             documento: this.detalleTemporal.documento,
             sexo: this.detalleTemporal.sexo,
@@ -208,14 +190,12 @@ export default {
             tipoContrato: this.detalleTemporal.tipoContrato,
             fechaInicio: this.detalleTemporal.fechaInicio,
             fechaFin: this.detalleTemporal.fechaFin,
-            cargo: this.detalleTemporal.cargo,
             areaTrabajo: this.detalleTemporal.areaTrabajo,
             salario: this.detalleTemporal.salario,
-            direccion: this.detalleTemporal.direccion,
+            barrio: this.detalleTemporal.barrio,
             departamento: this.detalleTemporal.departamento,
             ciudad: this.detalleTemporal.city,
             telefono: this.detalleTemporal.telefono,
-            esatdo: this.detalleTemporal.estado,
             rol: this.detalleTemporal.rol,
           })
           .then((response) => {

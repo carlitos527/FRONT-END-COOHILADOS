@@ -124,15 +124,10 @@
                                     label="Telefono"
                                     required
                                   ></v-text-field>
-                                  <v-text-field
-                                    v-model="email"
-                                    :rules="emailRules"
-                                    label="E-mail"
-                                    required
-                                  ></v-text-field>
+                                
                                   <v-text-field
                                     v-model="tipoContrato"
-                                    :rules="telefonoRules"
+                                    :rules="tipoContratoRules"
                                     label="Tipo de contrato del trabajador"
                                     required
                                   ></v-text-field>
@@ -443,6 +438,7 @@ export default {
       { text: "Nombre", value: "nombre" },
       { text: "Sexo", value: "sexo" },
       { text: "Cumpleaños", value: "fechaNacimiento" },
+      { text: "tipo de Contrato", value: "tipoContrato" },
       { text: "Inicio Cotrato", value: "fechaInicio" },
       { text: "Fin Cotrato", value: "fechaFin" },
       { text: "Tiempo", value: "tiempoLaborado" },
@@ -456,22 +452,22 @@ export default {
     valid4:true,
     nombre: "",
     nombreRules: [
-      (n) => !!n || " Nombre y Apellidos son requerido ❌",
-      (n) => (n && n.length <= 50) || " El Nombre solo puede tener 50 caracteres",
+      (n) => !!n || "Los Nombres y Apellidos son requerido ❌",
+      (n) => (n && n.length <= 50) || " nombre solo puede tener 50 caracteres",
     ],
     
     tipoDocumento: ["C.C", "Cedula de Extranjeria"],
     valid: true,
     documento: "",
     documentoRules: [
-      (d) => !!d || " Documento es requerido ❌ ",
+      (d) => !!d || "El Documento es requerido ❌ ",
       (d) => (d && d.length <= 15) || " Cedula solo puede tener 15 caracteres",
     ],
     sexo: ["M", "F"],
     valid2:true,
     tipoContrato: "",
     tipoContratoRules: [
-      (c) => !!c || " Documento es requerido ❌",
+      (c) => !!c || " EL Tipo de Contrato es requerido ❌",
       (c) => (c && c.length <= 50) || " EL tipo de contrato solo puede tener 50 caracteres",
     ],
     
@@ -488,7 +484,7 @@ export default {
     valid5:true,
     barrio: "",
     barrioRules: [
-      (b) => !!b || " Direcions requerido ❌",
+      (b) => !!b || "La Direcions requerido ❌",
       (b) => (b && b.length <= 50) || " EL Barrio Solo puede tener 50 caracteres",
     ],
     departamento: "",
@@ -501,12 +497,6 @@ export default {
       (t) => (t && t.length <= 30) || " EL Telefono Solo puede tener 30 caracteres",
     ],
 
-    valid7:true,
-    email: "",
-    emailRules: [
-      (e) => !!e || " Email es requerido ❌",
-      (e) => (e && e.length <= 30) || " EL Email Solo puede tener 30 caracteres",
-    ],
 
     valid8:true,
     rol: "",
@@ -678,17 +668,17 @@ export default {
             documento: this.documento,
             sexo: this.sexo,
             nombre: this.nombre,
+            barrio:this.barrio,
+            telefono:this.telefono,
             fechaNacimiento: this.fechaNacimiento,
             fechaInicio: this.fechaInicio, 
             fechaFin: this.fechaFin,
+            tipoContrato:this.tipoContrato,
             areaTrabajo: this.areaTrabajo,
             salario: this.salario,
-            barrio: this.barrio,
             departamento: this.departamento,
             ciudad: this.city,
-            telefono: this.telefono,
-            email: this.email,
-            cargo: this.rol,
+            rol: this.rol,
           },
           header
         )

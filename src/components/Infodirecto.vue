@@ -25,7 +25,9 @@
             <v-card-text>
               <v-row align="center" class="mx-0">
                 <v-col cols="12" sm="6" md="4">
-                  <p label="Estado">Estado: {{ detalleDirecto.estado }}</p>
+                  <p label="Estado" v-if="detalleDirecto.estado==1">Estado: Activo</p>
+                  <p label="Estado" v-if="detalleDirecto.estado==2">Estado: Inactivo</p>
+                  <p label="Estado" v-if="detalleDirecto.estado==3">Estado: De vacaciones</p>
                 </v-col>
               </v-row>
             </v-card-text>
@@ -36,12 +38,6 @@
               <template>
                 <v-container>
                   <v-row>
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleDirecto.tipoPersona"
-                        label="Tipo Persona"
-                      ></v-text-field>
-                    </v-col>
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
@@ -145,12 +141,7 @@
                       ></v-text-field>
                     </v-col>
 
-                    <v-col cols="12" sm="6" md="6">
-                      <v-text-field
-                        v-model="detalleDirecto.estado"
-                        label="estado"
-                      ></v-text-field>
-                    </v-col>
+                    
 
                     <v-col cols="12" sm="6" md="6">
                       <v-text-field
@@ -212,7 +203,6 @@ export default {
             departamento: this.detalleDirecto.departamento,
             ciudad: this.detalleDirecto.city,
             telefono: this.detalleDirecto.telefono,
-            esatdo: this.detalleDirecto.estado,
             rol: this.detalleDirecto.rol,
           })
           .then((response) => {
