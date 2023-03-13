@@ -137,7 +137,7 @@ export default {
     email: "",
     emailRules: [
       (e) => !!e || " EL E-mail es requerido ❌",
-      (e) => (e && e.length <= 20) || " el email  solo puede tener menos de  20 caracteres",
+      (e) => (e && e.length <= 30) || " el email  solo puede tener menos de  30 caracteres",
     ],
     valid6:true,
     password: "",
